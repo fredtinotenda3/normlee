@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* -----------------------------
+   Light Mode Variables
+---------------------------------*/
+:root {
+  --background: #F8F9FA;          /* Soft light gray for industrial feel */
+  --foreground: #171717;          /* Dark gray text */
+  --color-primary: #FF6600;       /* Deep Orange for CTAs */
+  --color-primary-dark: #FF7F11;  /* Hover/focus */
+  --color-secondary: #333333;     /* Charcoal for headings/subtext */
+  --color-accent: #FFFFFF;        /* White for text on buttons/cards */
+  --color-card: #FAFAFA;          /* Slightly off-white for sections/cards */
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* -----------------------------
+   Tailwind Theme Inline
+---------------------------------*/
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-card: var(--color-card);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+}
+
+/* -----------------------------
+   Dark Mode Variables
+---------------------------------*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1A1C22;        /* Deep oceanic / charcoal */
+    --foreground: #EDEDED;        /* Light gray text */
+    --color-secondary: #CCCCCC;   /* Lighter gray for headings/subtext */
+    --color-card: #22252D;        /* Dark card/section background */
+  }
+}
+
+/* -----------------------------
+   Global Body Styles
+---------------------------------*/
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* -----------------------------
+   Headings
+---------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-secondary);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* -----------------------------
+   Links
+---------------------------------*/
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* -----------------------------
+   Buttons (Fallback Styles)
+---------------------------------*/
+button {
+  font-family: var(--font-heading);
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* -----------------------------
+   Card / Section Background
+---------------------------------*/
+.card {
+  background-color: var(--color-card);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* -----------------------------
+   Utility Resets
+---------------------------------*/
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Add these to your existing globals.css */
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Form Elements Styling */
+input, select, textarea {
+  background-color: var(--background);
+  border-color: var(--color-secondary);
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+}
+
+/* Loading States */
+.loading {
+  position: relative;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border: 2px solid var(--color-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+}
