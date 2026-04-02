@@ -54,7 +54,7 @@ export default function WhyChooseUs() {
               <span className="text-primary">Delivered with Pride.</span>
             </h2>
             <p className="text-gray-400 mb-10 leading-relaxed">
-              Over a decade of serving Harare&apos;s builders, contractors, and homeowners
+              Over a decade of serving Zimbabwe&apos;s builders, contractors, and homeowners
               with the materials and expertise they depend on.
             </p>
 

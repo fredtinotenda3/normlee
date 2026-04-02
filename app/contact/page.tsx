@@ -51,7 +51,7 @@ export default function ContactPage() {
                     <div>
                       <p className="font-semibold text-secondary mb-0.5">Address</p>
                       <p className="text-gray-500 text-sm">
-                        610-11th Street, Hatcliffe, Borrowdale, Harare
+                        610-11th Street, Hatcliffe, Borrowdale, Zimbabwe
                       </p>
                     </div>
                   </div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                 />
                 <div className="p-4">
                   <p className="text-sm text-gray-500 text-center">
-                    610-11th Street, Hatcliffe, Borrowdale, Harare
+                    610-11th Street, Hatcliffe, Borrowdale, Zimbabwe
                   </p>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function ContactPage() {
                     We provide fast and reliable delivery across:
                   </p>
                   <ul className="space-y-2">
-                    {["Harare (all areas)", "Borrowdale", "Hatcliffe", "Surrounding areas (contact for details)"].map((zone) => (
+                    {["Zimbabwe (all areas)", "Borrowdale", "Hatcliffe", "Surrounding areas (contact for details)"].map((zone) => (
                       <li key={zone} className="flex items-center gap-2 text-gray-700 text-sm">
                         <span className="w-2 h-2 bg-primary rounded-full shrink-0" />
                         {zone}

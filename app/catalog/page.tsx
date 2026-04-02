@@ -42,7 +42,7 @@ export default function CatalogPage() {
               <div className="mt-6 bg-primary/10 rounded-xl p-5 border border-primary/20">
                 <p className="text-secondary text-sm leading-relaxed">
                   <strong className="font-semibold text-primary">Delivery available</strong> across
-                  Harare, Borrowdale, and Hatcliffe. Contact us for delivery charges and bulk order discounts.
+                  Zimbabwe. Contact us for delivery charges and bulk order discounts.
                 </p>
               </div>
             </div>
@@ -79,7 +79,7 @@ export default function CatalogPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-5">
                   <p className="text-white font-heading font-bold text-sm">
-                    Same-day delivery available across Harare
+                    Same-day delivery available across Zimbabwe
                   </p>
                 </div>
               </div>

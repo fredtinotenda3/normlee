@@ -20,13 +20,13 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Normlee Investments | Construction Aggregates Supplier & Paving Services in Harare",
-  description: "Premium supplier of bulk construction aggregates (stones, sand, bricks) and specialist paving services in Harare, Borrowdale, Hatcliffe. Fast delivery, competitive prices. Build with confidence.",
-  keywords: "aggregates supplier Harare, paving services Harare, construction materials, building sand, stones, bricks, crusher runner, quarry dust, Normlee Investments",
+  title: "Normlee Investments | Construction Aggregates Supplier & Paving Services in Zimbabwe",
+  description: "Premium supplier of bulk construction aggregates (stones, sand, bricks) and specialist paving services in Zimbabwe, Borrowdale, Hatcliffe. Fast delivery, competitive prices. Build with confidence.",
+  keywords: "aggregates supplier Zimbabwe, paving services Zimbabwe, construction materials, building sand, stones, bricks, crusher runner, quarry dust, Normlee Investments",
   authors: [{ name: "Normlee Investments" }],
   openGraph: {
     title: "Normlee Investments | Construction Aggregates & Paving Specialist",
-    description: "Premium supplier of construction aggregates and specialist paving services in Harare. Build with confidence.",
+    description: "Premium supplier of construction aggregates and specialist paving services in Zimbabwe. Build with confidence.",
     type: "website",
     locale: "en_ZW",
   },

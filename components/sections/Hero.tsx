@@ -31,7 +31,7 @@ export default function Hero() {
           {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/50 text-primary px-4 py-1.5 rounded-full text-sm font-semibold tracking-widest uppercase mb-7">
             <span className="w-2 h-2 bg-primary rounded-full inline-block animate-pulse" />
-            Harare&apos;s Trusted Supplier Since 2010
+            Zimbabwe&apos;s Trusted Supplier Since 2010
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white leading-[1.05] mb-6">
@@ -41,7 +41,7 @@ export default function Hero() {
           </h1>
           <p className="text-xl text-gray-300 mb-10 leading-relaxed max-w-xl">
             Premium bulk construction aggregates, specialist paving, and fast delivery
-            across Harare, Borrowdale &amp; Hatcliffe.
+            across Zimbabwe.
           </p>
 
           {/* CTA Buttons */}

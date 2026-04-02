@@ -35,7 +35,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Premium supplier of construction aggregates and specialist paving services in Harare.
+              Premium supplier of construction aggregates and specialist paving services in Zimbabwe.
               Fast delivery, competitive prices.
             </p>
             {/* Social-style WhatsApp CTA */}
@@ -83,7 +83,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
                 <MapPin size={15} className="text-primary shrink-0 mt-0.5" />
-                <span className="text-gray-400">610-11th Street, Hatcliffe, Borrowdale, Harare</span>
+                <span className="text-gray-400">610-11th Street, Hatcliffe, Borrowdale, Zimbabwe</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={15} className="text-primary shrink-0" />
@@ -110,7 +110,7 @@ export default function Footer() {
               Delivery Zones
             </h4>
             <div className="space-y-3 text-sm">
-              {["Harare (all areas)", "Borrowdale", "Hatcliffe", "Surrounding areas"].map((zone) => (
+              {["Zimbabwe (all areas)", "Borrowdale", "Hatcliffe", "Surrounding areas"].map((zone) => (
                 <div key={zone} className="flex items-center gap-2.5">
                   <Truck size={14} className="text-primary shrink-0" />
                   <span className="text-gray-400">{zone}</span>

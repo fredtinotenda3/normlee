@@ -28,7 +28,7 @@ const services = [
   {
     icon: Building2,
     title: "Fast Delivery",
-    description: "Reliable transport across Harare, Borrowdale, and Hatcliffe.",
+    description: "Reliable transport across Zimbabwe.",
     items: ["Same-day delivery", "Flexible scheduling", "Large fleet", "Competitive rates"],
     image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80",
     href: "/contact",
