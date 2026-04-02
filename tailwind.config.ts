@@ -6,36 +6,27 @@ const config: Config = {
     './components/**/*.{ts,tsx}',
     './lib/**/*.{ts,tsx}',
   ],
-  darkMode: 'media', // respects prefers-color-scheme
+  darkMode: 'media',
   theme: {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#FF6600',  // Deep Orange / Amber for CTAs
-          dark: '#FF7F11',     // Hover/focus
+          DEFAULT: '#FF6600',
+          hover: '#E55A00',
         },
         secondary: {
-          DEFAULT: '#333333',  // Charcoal / Dark Gray for headers/text
-          light: '#4F4F4F',    // Subtle text or secondary UI
+          DEFAULT: '#333333',
+          light: '#4F4F4F',
         },
         accent: {
-          DEFAULT: '#FFFFFF',  // White for contrast/background
+          DEFAULT: '#FFFFFF',
         },
         gray: {
-          50: '#F8F8F8',
-          100: '#E0E0E0',
-          200: '#C0C0C0',
-          300: '#A0A0A0',
-          400: '#808080',
-          500: '#666666',
-          600: '#4F4F4F',
-          700: '#333333',
-          800: '#1F1F1F',
-          900: '#0D0D0D',
+          50: '#F8F8F8', 100: '#E0E0E0', 200: '#C0C0C0', 300: '#A0A0A0',
+          400: '#808080', 500: '#666666', 600: '#4F4F4F', 700: '#333333',
+          800: '#1F1F1F', 900: '#0D0D0D',
         },
-        earth: {
-          green: '#4CAF50', // Optional accent for eco/fill materials
-        },
+        earth: { green: '#4CAF50' },
       },
       fontFamily: {
         heading: ['Poppins', 'sans-serif'],
@@ -45,19 +36,13 @@ const config: Config = {
         card: '0 4px 12px rgba(0,0,0,0.1)',
         button: '0 2px 6px rgba(0,0,0,0.15)',
       },
-      borderRadius: {
-        card: '1rem',
-        button: '0.5rem',
-      },
-      container: {
-        center: true,
-        padding: '1rem',
-      },
+      borderRadius: { card: '1rem', button: '0.5rem' },
+      container: { center: true, padding: '1rem' },
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),      // For PriceCalculator inputs/selects
-    require('@tailwindcss/typography'), // Optional for product/service descriptions
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
   ],
 };
 

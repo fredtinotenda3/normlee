@@ -1,104 +1,135 @@
-import { MapPin, Phone, Mail, Clock, Truck, HardHat } from "lucide-react";
+import { MapPin, Phone, Clock, Truck, HardHat, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-secondary text-gray-300 pt-12 pb-6">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
+    <footer className="relative bg-secondary overflow-hidden">
+      {/* Subtle background texture */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-5"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=60')",
+        }}
+      />
+      {/* Top orange bar */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
+
+      <div className="container mx-auto px-6 relative z-10 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          {/* Brand */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">NL</span>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                <span className="text-white font-extrabold text-lg font-heading">NL</span>
               </div>
               <div>
-                <h3 className="font-heading font-bold text-white">Normlee Investments</h3>
-                <p className="text-sm text-gray-400">Building with confidence</p>
+                <p className="font-heading font-extrabold text-white text-lg leading-none">
+                  Normlee
+                </p>
+                <p className="text-xs text-primary tracking-wider uppercase font-medium">
+                  Investments
+                </p>
               </div>
             </div>
-            <p className="text-sm">
+            <p className="text-gray-400 text-sm leading-relaxed mb-5">
               Premium supplier of construction aggregates and specialist paving services in Harare.
               Fast delivery, competitive prices.
             </p>
+            {/* Social-style WhatsApp CTA */}
+            <a
+              href="https://wa.me/263774130626"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 font-semibold transition-colors"
+            >
+              <MessageCircle size={16} />
+              Chat on WhatsApp
+            </a>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/" className="hover:text-primary transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/catalog" className="hover:text-primary transition-colors">
-                  Product Catalog
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-primary transition-colors">
-                  Paving Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-primary transition-colors">
-                  Contact
-                </Link>
-              </li>
+            <h4 className="font-heading font-bold text-white mb-5 uppercase text-xs tracking-widest">
+              Quick Links
+            </h4>
+            <ul className="space-y-3 text-sm">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Product Catalog", href: "/catalog" },
+                { label: "Paving Services", href: "/services" },
+                { label: "Contact Us", href: "/contact" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-400 hover:text-primary transition-colors flex items-center gap-2 group"
+                  >
+                    <span className="w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
-            <h4 className="font-heading font-semibold text-white mb-4">Contact</h4>
+            <h4 className="font-heading font-bold text-white mb-5 uppercase text-xs tracking-widest">
+              Contact
+            </h4>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start space-x-2">
-                <MapPin size={16} className="text-primary shrink-0 mt-1" />
-                <span>610-11th Street, Hatcliffe, Borrowdale, Harare</span>
+              <li className="flex items-start gap-2.5">
+                <MapPin size={15} className="text-primary shrink-0 mt-0.5" />
+                <span className="text-gray-400">610-11th Street, Hatcliffe, Borrowdale, Harare</span>
               </li>
-              <li className="flex items-center space-x-2">
-                <Phone size={16} className="text-primary" />
-                <a href="tel:+263774130626" className="hover:text-primary">
+              <li className="flex items-center gap-2.5">
+                <Phone size={15} className="text-primary shrink-0" />
+                <a href="tel:+263774130626" className="text-gray-400 hover:text-primary transition-colors">
                   0774 130 626
                 </a>
               </li>
-              <li className="flex items-center space-x-2">
-                <Phone size={16} className="text-primary" />
-                <a href="tel:+263714491705" className="hover:text-primary">
+              <li className="flex items-center gap-2.5">
+                <Phone size={15} className="text-primary shrink-0" />
+                <a href="tel:+263714491705" className="text-gray-400 hover:text-primary transition-colors">
                   0714 491 705
                 </a>
               </li>
-              <li className="flex items-center space-x-2">
-                <Clock size={16} className="text-primary" />
-                <span>Mon-Sat: 7:00 AM - 5:00 PM</span>
+              <li className="flex items-center gap-2.5">
+                <Clock size={15} className="text-primary shrink-0" />
+                <span className="text-gray-400">Mon–Sat: 7:00 AM – 5:00 PM</span>
               </li>
             </ul>
           </div>
 
-          {/* Delivery Info */}
+          {/* Delivery */}
           <div>
-            <h4 className="font-heading font-semibold text-white mb-4">Delivery Zones</h4>
-            <div className="flex items-center space-x-2 mb-3">
-              <Truck size={18} className="text-primary" />
-              <span className="text-sm">Fast delivery across Harare</span>
+            <h4 className="font-heading font-bold text-white mb-5 uppercase text-xs tracking-widest">
+              Delivery Zones
+            </h4>
+            <div className="space-y-3 text-sm">
+              {["Harare (all areas)", "Borrowdale", "Hatcliffe", "Surrounding areas"].map((zone) => (
+                <div key={zone} className="flex items-center gap-2.5">
+                  <Truck size={14} className="text-primary shrink-0" />
+                  <span className="text-gray-400">{zone}</span>
+                </div>
+              ))}
             </div>
-            <div className="flex items-center space-x-2 mb-3">
-              <HardHat size={18} className="text-primary" />
-              <span className="text-sm">Specialist paving services</span>
+            <div className="mt-5 flex items-center gap-2.5">
+              <HardHat size={15} className="text-primary" />
+              <span className="text-gray-400 text-sm">Specialist paving services</span>
             </div>
-            <p className="text-sm text-gray-400 mt-4">
-              Delivery zones: Harare, Borrowdale, Hatcliffe, and surrounding areas
-            </p>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 pt-6 text-center text-sm">
-          <p>&copy; {currentYear} Normlee Investments (Pvt) Ltd. All rights reserved.</p>
-          <p className="text-gray-500 mt-1">Building with confidence since 2010</p>
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-2 text-sm">
+          <p className="text-gray-500">
+            &copy; {currentYear} Normlee Investments (Pvt) Ltd. All rights reserved.
+          </p>
+          <p className="text-gray-600 text-xs">Building with confidence since 2010</p>
         </div>
       </div>
     </footer>

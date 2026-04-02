@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, MessageCircle } from "lucide-react";
 import { useState } from "react";
-import Image from "next/image";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -24,65 +23,72 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-200">
-      <div className="container mx-auto px-4">
+    <nav className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+      {/* Top orange micro-bar */}
+      <div className="h-1 bg-primary w-full" />
+
+      <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-xl">NL</span>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-md shadow-primary/30 group-hover:bg-primary-hover transition-colors">
+              <span className="text-white font-heading font-extrabold text-lg">NL</span>
             </div>
-            <div>
-              <span className="font-heading font-bold text-lg md:text-xl text-secondary">
+            <div className="leading-none">
+              <span className="font-heading font-extrabold text-xl text-secondary block">
                 Normlee
               </span>
-              <span className="font-heading font-medium text-sm md:text-base text-primary block leading-tight">
+              <span className="font-heading font-medium text-xs text-primary tracking-wider uppercase">
                 Investments
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`font-medium transition-colors ${
+                className={`relative font-heading font-semibold text-sm transition-colors pb-1 ${
                   isActive(item.href)
-                    ? "text-primary border-b-2 border-primary pb-1"
+                    ? "text-primary"
                     : "text-secondary hover:text-primary"
                 }`}
               >
                 {item.name}
+                {isActive(item.href) && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
+                )}
               </Link>
             ))}
           </div>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center gap-3">
             <a
               href="tel:+263774130626"
-              className="flex items-center space-x-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-200 text-secondary rounded-lg hover:border-primary hover:text-primary transition-colors text-sm font-semibold"
             >
-              <Phone size={18} />
-              <span>Call Now</span>
+              <Phone size={16} />
+              0774 130 626
             </a>
             <a
-              href="https://wa.me/263774130626?text=Hi%20Normlee%20Investments%2C%20I%27m%20interested%20in%20your%20construction%20materials%20and%20paving%20services"
+              href="https://wa.me/263774130626?text=Hi%20Normlee%20Investments%2C%20I%27m%20interested%20in%20your%20services"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors"
+              className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-hover transition-colors text-sm font-heading font-bold shadow-md shadow-primary/20"
             >
-              <MessageCircle size={18} />
-              <span>WhatsApp</span>
+              <MessageCircle size={16} />
+              WhatsApp
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 bg-transparent text-secondary"
+            aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -90,37 +96,38 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-5 border-t border-gray-100">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block py-3 font-medium ${
-                  isActive(item.href)
-                    ? "text-primary"
-                    : "text-secondary hover:text-primary"
+                className={`flex items-center py-3 font-heading font-semibold text-sm border-b border-gray-50 last:border-0 ${
+                  isActive(item.href) ? "text-primary" : "text-secondary hover:text-primary"
                 }`}
               >
+                {isActive(item.href) && (
+                  <span className="w-1 h-4 bg-primary rounded-full mr-3 inline-block" />
+                )}
                 {item.name}
               </Link>
             ))}
-            <div className="flex flex-col space-y-3 pt-4">
+            <div className="flex flex-col gap-3 pt-5">
               <a
                 href="tel:+263774130626"
-                className="flex items-center justify-center space-x-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
+                className="flex items-center justify-center gap-2 py-3 border border-primary text-primary rounded-xl font-heading font-bold hover:bg-primary hover:text-white transition-colors"
               >
                 <Phone size={18} />
-                <span>Call Now</span>
+                Call Now
               </a>
               <a
-                href="https://wa.me/263774130626?text=Hi%20Normlee%20Investments%2C%20I%27m%20interested%20in%20your%20construction%20materials%20and%20paving%20services"
+                href="https://wa.me/263774130626?text=Hi%20Normlee%20Investments%2C%20I%27m%20interested%20in%20your%20services"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center space-x-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors"
+                className="flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl font-heading font-bold hover:bg-primary-hover transition-colors"
               >
                 <MessageCircle size={18} />
-                <span>WhatsApp</span>
+                WhatsApp
               </a>
             </div>
           </div>
