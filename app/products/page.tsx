@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import ProductTable from "@/components/shared/ProductTable";
 import PriceCalculator from "@/components/shared/PriceCalculator";
 import { MessageCircle, Package } from "lucide-react";
+import { photos } from "@/lib/images";
 import { whatsappMessages, whatsappUrl } from "@/lib/site";
 
 export const revalidate = 3600;
@@ -48,6 +50,19 @@ export default function ProductsPage() {
 
             <div className="space-y-6">
               <PriceCalculator />
+              <figure className="bg-white rounded-2xl shadow-md overflow-hidden">
+                <Image
+                  src={photos.sandStockpile.src}
+                  width={photos.sandStockpile.width}
+                  height={photos.sandStockpile.height}
+                  alt={photos.sandStockpile.alt}
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="h-64 w-full object-cover"
+                />
+                <figcaption className="p-4 text-sm text-gray-600">
+                  A delivered sand stockpile. Contact us to confirm the grade and volume for your project.
+                </figcaption>
+              </figure>
               <div className="bg-white rounded-2xl shadow-md overflow-hidden">
                 <div className="h-1.5 bg-primary" aria-hidden="true" />
                 <div className="p-6">

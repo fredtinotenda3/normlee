@@ -1,5 +1,6 @@
+import Image from "next/image";
 import { CheckCircle2, Clock, ThumbsUp, Shield, Award } from "lucide-react";
-import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
+import { photos } from "@/lib/images";
 import { site } from "@/lib/site";
 
 // TODO(owner): these benefit statements are carried over from the original site and are
@@ -67,17 +68,24 @@ export default function WhyChooseUs() {
             </div>
           </div>
 
-          {/* Right: photo placeholder + badge */}
-          <div className="relative">
-            {/* TODO(owner): replace with a genuine Normlee paving photo. */}
-            <PhotoPlaceholder subject="Completed Normlee paving project" className="h-[460px] rounded-2xl" />
+          {/* Right: genuine fleet photograph + badge */}
+          <figure className="relative">
+            <Image
+              src={photos.fleetYard.src}
+              width={photos.fleetYard.width}
+              height={photos.fleetYard.height}
+              alt={photos.fleetYard.alt}
+              sizes="(min-width: 1024px) 560px, 90vw"
+              className="h-auto w-full rounded-2xl shadow-2xl"
+            />
+            <figcaption className="mt-3 text-sm text-gray-300">Heavy haulage trucks parked in a yard.</figcaption>
 
             <div className="absolute -top-6 right-2 md:-right-6 w-28 h-28 bg-primary-strong rounded-2xl shadow-xl flex flex-col items-center justify-center rotate-3">
               <Award aria-hidden="true" className="w-7 h-7 text-white mb-1" />
               <span className="text-white text-xs text-center leading-tight">Serving Zimbabwe since</span>
               <span className="text-white font-heading font-extrabold text-2xl leading-none">{site.foundedYear}</span>
             </div>
-          </div>
+          </figure>
         </div>
       </div>
     </section>

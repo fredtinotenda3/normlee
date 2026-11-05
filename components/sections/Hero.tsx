@@ -1,4 +1,7 @@
+import Image from "next/image";
 import { Phone, MessageCircle, ChevronDown } from "lucide-react";
+import PavingPattern from "@/components/shared/PavingPattern";
+import { photos } from "@/lib/images";
 import { primaryPhone, site, telUrl, whatsappMessages, whatsappUrl } from "@/lib/site";
 
 // Factual strip: only verified information (founding year) and what the business sells.
@@ -11,8 +14,9 @@ const highlights = [
 export default function Hero() {
   return (
     <section className="relative min-h-svh flex items-center overflow-hidden bg-gray-900">
-      {/* TODO(owner): replace this plain background with a genuine Normlee project or product photo. */}
+      {/* TODO(owner): supply a high-resolution landscape photo (see IMAGE_ASSET_GUIDE.md) for a full-bleed hero background. The supplied clips are too low-resolution for that, so a framed photo is used instead. */}
       <div className="absolute inset-0 bg-linear-to-br from-gray-800 via-gray-900 to-black" aria-hidden="true" />
+      <PavingPattern />
 
       {/* Orange left accent bar */}
       <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary z-10" aria-hidden="true" />
@@ -24,7 +28,7 @@ export default function Hero() {
         style={{ clipPath: "polygon(50% 0, 100% 0, 100% 100%, 0% 100%)" }}
       />
 
-      <div className="container mx-auto px-6 relative z-10 py-28 md:py-36">
+      <div className="container mx-auto px-6 relative z-10 py-28 md:py-36 grid lg:grid-cols-[minmax(0,1fr)_auto] gap-16 items-center">
         <div className="max-w-3xl">
           {/* Eyebrow */}
           <p className="inline-flex items-center gap-2 bg-primary/20 border border-primary/50 text-primary px-4 py-1.5 rounded-full text-sm font-semibold tracking-widest uppercase mb-7">
@@ -73,6 +77,20 @@ export default function Hero() {
             ))}
           </dl>
         </div>
+
+        {/* Genuine site photograph at its native size so it stays sharp. Hidden on small screens to keep the CTAs above the fold. */}
+        <figure className="hidden lg:block relative w-[368px] shrink-0">
+          <div aria-hidden="true" className="absolute -bottom-4 -right-4 h-full w-full rounded-2xl border-2 border-primary/60" />
+          <Image
+            src={photos.heroLoading.src}
+            width={photos.heroLoading.width}
+            height={photos.heroLoading.height}
+            alt={photos.heroLoading.alt}
+            preload
+            sizes="368px"
+            className="relative h-auto w-full rounded-2xl object-cover shadow-2xl ring-1 ring-white/10"
+          />
+        </figure>
       </div>
 
       {/* Scroll cue (decorative) */}

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { HardHat, Home, Building2, Leaf, CheckCircle2, Truck, Phone, MessageCircle } from "lucide-react";
+import PavingPattern from "@/components/shared/PavingPattern";
 import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
+import { photos } from "@/lib/images";
 import { primaryPhone, telUrl, whatsappMessages, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -49,8 +52,8 @@ export default function ServicesPage() {
     <>
       {/* Hero Section */}
       <section className="relative flex items-end overflow-hidden bg-gray-900 pt-32 pb-16">
-        {/* TODO(owner): replace with a genuine Normlee paving photo. */}
         <div className="absolute inset-0 bg-linear-to-br from-gray-800 via-gray-900 to-black" aria-hidden="true" />
+        <PavingPattern />
         <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary" aria-hidden="true" />
 
         <div className="container mx-auto px-6 relative z-10">
@@ -107,8 +110,23 @@ export default function ServicesPage() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* TODO(owner): replace with a genuine photo of the Normlee paving team or work. */}
-            <PhotoPlaceholder subject="Normlee paving team at work" className="h-[480px] rounded-2xl" />
+            {/*
+              Genuine photograph of paving blocks being delivered to a site. It shows delivery, not
+              installation. TODO(owner): supply photos of completed paving and the paving team.
+            */}
+            <figure className="mx-auto w-full max-w-[368px] lg:mx-0 lg:justify-self-center">
+              <Image
+                src={photos.pavingDeliveryCrane.src}
+                width={photos.pavingDeliveryCrane.width}
+                height={photos.pavingDeliveryCrane.height}
+                alt={photos.pavingDeliveryCrane.alt}
+                sizes="(min-width: 1024px) 368px, 90vw"
+                className="h-auto w-full rounded-2xl object-cover shadow-xl"
+              />
+              <figcaption className="mt-3 text-sm text-gray-600">
+                Paving blocks being offloaded at a site by grab crane.
+              </figcaption>
+            </figure>
 
             <div>
               <p className="text-primary-strong font-semibold text-sm uppercase tracking-widest mb-3">Our Approach</p>

@@ -1,7 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Truck, HardHat, Box, Building2, ArrowRight } from "lucide-react";
+import { photos } from "@/lib/images";
 
-// TODO(owner): add a genuine photo per card once supplied. Cards currently use a neutral dark background.
+// Each card uses a genuine owner-supplied photograph (see lib/images.ts). The paving card shows paving
+// blocks being delivered: TODO(owner): swap in a completed-paving photo once supplied.
 const services = [
   {
     icon: Truck,
@@ -9,6 +12,7 @@ const services = [
     description: "Stones, sand and base materials supplied in bulk. Contact us to arrange delivery.",
     items: ["3/4 & 7mm Stones", "River & Pit Sand", "Crusher Runner", "Quarry Dust"],
     href: "/products",
+    photo: photos.heroLoading,
   },
   {
     icon: HardHat,
@@ -16,6 +20,7 @@ const services = [
     description: "Paving services for residential and industrial projects.",
     items: ["Driveways", "Walkways", "Industrial Paving", "Decorative Surfaces"],
     href: "/services",
+    photo: photos.pavingDeliveryDetail,
   },
   {
     icon: Box,
@@ -23,6 +28,7 @@ const services = [
     description: "Bricks and fill materials for your construction needs.",
     items: ["Red Common Bricks", "Top Soil", "Gravel", "Coal & Brick Rubble"],
     href: "/products",
+    photo: photos.sandStockpile,
   },
   {
     icon: Building2,
@@ -30,6 +36,7 @@ const services = [
     description: "Bulk materials delivered to site. Contact us to confirm availability and charges for your location.",
     items: ["Delivery to site", "Quoted per location", "Bulk orders"],
     href: "/contact",
+    photo: photos.tipperFill,
   },
 ];
 
@@ -60,7 +67,15 @@ export default function ServicesOverview() {
               href={service.href}
               className="group relative overflow-hidden rounded-2xl bg-gray-800 flex flex-col min-h-[380px] shadow-md hover:shadow-2xl transition-all duration-300"
             >
-              <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/90 via-gray-900/80 to-gray-700/60" />
+              <Image
+                src={service.photo.src}
+                width={service.photo.width}
+                height={service.photo.height}
+                alt={service.photo.alt}
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/90 via-gray-900/65 to-gray-900/20" />
 
               {/* Orange top accent bar on hover/focus */}
               <div
