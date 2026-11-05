@@ -1,40 +1,47 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/shared/FloatingWhatsApp";
+import { site } from "@/lib/site";
 import "./globals.css";
 
-// Configure fonts
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-inter",
   display: "swap",
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-heading",
+  variable: "--font-poppins",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Normlee Investments | Construction Aggregates Supplier & Paving Services in Zimbabwe",
-  description: "Premium supplier of bulk construction aggregates (stones, sand, bricks) and specialist paving services in Zimbabwe, Borrowdale, Hatcliffe. Fast delivery, competitive prices. Build with confidence.",
-  keywords: "aggregates supplier Zimbabwe, paving services Zimbabwe, construction materials, building sand, stones, bricks, crusher runner, quarry dust, Normlee Investments",
-  authors: [{ name: "Normlee Investments" }],
+  metadataBase: new URL(site.url),
+  title: {
+    default: "Normlee Investments | Construction Aggregates & Paving Services in Zimbabwe",
+    template: "%s | Normlee Investments",
+  },
+  description:
+    "Normlee Investments supplies construction aggregates (stones, sand, crusher run), bricks and specialist paving services in Zimbabwe. Operating since 2010. Request a quote on WhatsApp or by phone.",
+  authors: [{ name: site.name }],
   openGraph: {
     title: "Normlee Investments | Construction Aggregates & Paving Specialist",
-    description: "Premium supplier of construction aggregates and specialist paving services in Zimbabwe. Build with confidence.",
+    description:
+      "Construction aggregates, bricks and specialist paving services in Zimbabwe. Operating since 2010.",
     type: "website",
     locale: "en_ZW",
+    siteName: site.name,
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  viewport: "width=device-width, initial-scale=1",
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -45,8 +52,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Navigation />
-        <main className="grow">{children}</main>
+        <main id="main-content" className="grow">
+          {children}
+        </main>
         <Footer />
         <FloatingWhatsApp />
       </body>

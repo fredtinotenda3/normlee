@@ -2,51 +2,48 @@
 
 import { MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { whatsappMessages, whatsappUrl } from "@/lib/site";
 
 export default function FloatingWhatsApp() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // Hide when near bottom to avoid overlap with footer
-      if (scrollPosition + windowHeight > documentHeight - 150) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
+      // Hide near the bottom of the page to avoid overlapping the footer.
+      const nearBottom =
+        window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 150;
+      setIsVisible(!nearBottom);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const whatsappNumber = "263774130626";
-  const message = encodeURIComponent(
-    "Hi Normlee Investments, I'm interested in your construction materials and paving services. Please help me with more information."
-  );
-
   return (
-    <div
+    <aside
+      aria-label="Quick contact"
       className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-        isVisible ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0"
+        isVisible ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0 pointer-events-none"
       }`}
     >
       <a
-        href={`https://wa.me/${whatsappNumber}?text=${message}`}
+        href={whatsappUrl(whatsappMessages.general)}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center w-14 h-14 bg-green-500 rounded-full shadow-lg hover:bg-green-600 transition-all hover:scale-110 group"
-        aria-label="Chat on WhatsApp"
+        tabIndex={isVisible ? 0 : -1}
+        aria-hidden={isVisible ? undefined : true}
+        aria-label="Chat with Normlee on WhatsApp (opens in a new tab)"
+        className="group relative flex items-center justify-center w-14 h-14 bg-green-700 rounded-full shadow-lg hover:bg-green-800 transition-all hover:scale-110"
       >
-        <MessageCircle size={28} className="text-white" />
-        <span className="absolute right-16 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+        <MessageCircle size={28} aria-hidden="true" className="text-white" />
+        <span
+          aria-hidden="true"
+          className="absolute right-16 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+        >
           WhatsApp Us
         </span>
       </a>
-    </div>
+    </aside>
   );
 }

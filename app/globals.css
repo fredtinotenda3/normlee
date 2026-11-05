@@ -1,133 +1,110 @@
 @import "tailwindcss";
 
 /* -----------------------------
-   Light Mode Variables
+   Brand tokens
+   `primary` is the original brand orange (#FF6600). It is kept for decorative
+   fills, bars and for text on DARK backgrounds. It does not reach WCAG AA
+   contrast against white (2.9:1), so `primary-strong` is a slightly deeper
+   shade used for text on light backgrounds and for fills that carry white text.
 ---------------------------------*/
-:root {
-  --background: #F8F9FA;
-  --foreground: #171717;
-  --color-primary: #FF6600;
-  --color-primary-hover: #E55A00;
+@theme {
+  --color-primary: #ff6600;
+  --color-primary-hover: #e55a00;
+  /* Slightly lighter orange for SMALL text on dark grey (#333) backgrounds (4.5:1+). */
+  --color-primary-light: #ff7a1a;
+  --color-primary-strong: #c44f00;
+  --color-primary-strong-hover: #a64300;
   --color-secondary: #333333;
-  --color-accent: #FFFFFF;
-  --color-card: #FAFAFA;
-  --font-heading: 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --color-secondary-light: #4f4f4f;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--color-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-secondary: var(--color-secondary);
-  --color-accent: var(--color-accent);
-  --color-card: var(--color-card);
-  --font-sans: var(--font-body);
-  --font-heading: var(--font-heading);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+/*
+  Base styles MUST live inside @layer base. Unlayered rules always beat
+  Tailwind's layered utilities, which previously overrode classes such as
+  text-white and bg-transparent on links, headings and buttons.
+*/
+@layer base {
   :root {
-    --background: #1A1C22;
-    --foreground: #EDEDED;
-    --color-secondary: #CCCCCC;
-    --color-card: #22252D;
+    color-scheme: light;
+    --background: #f8f9fa;
+    --foreground: #171717;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    color: var(--color-secondary);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font-family: var(--font-heading);
+    cursor: pointer;
+  }
+
+  /* Visible keyboard focus: a dark-orange ring with a white inner gap works on light and dark backgrounds. */
+  :focus-visible {
+    outline: 3px solid var(--color-primary-strong);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #ffffff;
+  }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--color-secondary);
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    top: 1rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body);
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  color: var(--color-secondary);
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-}
-a:hover {
-  color: var(--color-primary-hover);
-}
-
-button {
-  font-family: var(--font-heading);
-  background-color: var(--color-primary);
-  color: var(--color-accent);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-button:hover {
-  background-color: var(--color-primary-hover);
-}
-
-.card {
-  background-color: var(--color-card);
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: var(--color-card); }
+::-webkit-scrollbar-track { background: #fafafa; }
 ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 5px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-primary-hover); }
 
-input, select, textarea {
-  background-color: var(--background);
-  border-color: var(--color-secondary);
-  transition: all 0.2s ease;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
-}
-
-.loading {
-  position: relative;
-  opacity: 0.7;
-  pointer-events: none;
-}
-.loading::after {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 24px; height: 24px;
-  margin: -12px 0 0 -12px;
-  border: 2px solid var(--color-primary);
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
 
 @media print {
   .no-print { display: none; }
