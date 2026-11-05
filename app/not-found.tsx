@@ -10,8 +10,12 @@ export const metadata: Metadata = {
 
 const links = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Products & Prices", href: "/products" },
-  { label: "Paving Services", href: "/services" },
+  { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
+  { label: "Testimonials", href: "/testimonials" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
 ];
 

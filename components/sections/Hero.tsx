@@ -8,7 +8,7 @@ import { primaryPhone, site, telUrl, whatsappMessages, whatsappUrl } from "@/lib
 const highlights = [
   { value: String(site.foundedYear), label: "Year Established" },
   { value: "Stones, Sand & Bricks", label: "Bulk Aggregates" },
-  { value: "Paving", label: "Residential & Industrial" },
+  { value: "Paving", label: "Services" },
 ];
 
 export default function Hero() {
@@ -42,8 +42,8 @@ export default function Hero() {
             <span className="text-primary">Confidence.</span>
           </h1>
           <p className="text-xl text-gray-200 mb-10 leading-relaxed max-w-xl">
-            Bulk construction aggregates, bricks and specialist paving. Contact us for a quote and delivery
-            to your site.
+            Bulk construction aggregates, bricks and paving services. Contact us for a quote and to ask about
+            delivery to your site.
           </p>
 
           {/* CTA Buttons */}

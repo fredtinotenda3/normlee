@@ -1,13 +1,7 @@
 import { MapPin, Phone, Clock, Truck, HardHat, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import { navItems } from "@/lib/nav";
 import { site, telUrl, whatsappUrl } from "@/lib/site";
-
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
-  { label: "Paving Services", href: "/services" },
-  { label: "Contact Us", href: "/contact" },
-];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -32,7 +26,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed mb-5">
-              Supplier of construction aggregates and specialist paving services in Zimbabwe.
+              Supplier of construction aggregates and building materials, with delivery and paving services, in Zimbabwe.
             </p>
             <a
               href={whatsappUrl()}
@@ -50,10 +44,10 @@ export default function Footer() {
           <nav aria-label="Footer">
             <h3 className="font-heading font-bold text-white mb-5 uppercase text-xs tracking-widest">Quick Links</h3>
             <ul className="space-y-3 text-sm">
-              {quickLinks.map((link) => (
+              {navItems.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-gray-300 hover:text-primary-light transition-colors">
-                    {link.label}
+                    {link.name}
                   </Link>
                 </li>
               ))}
@@ -98,7 +92,7 @@ export default function Footer() {
             </ul>
             <div className="mt-5 flex items-center gap-2.5">
               <HardHat size={15} aria-hidden="true" className="text-primary-light" />
-              <span className="text-gray-300 text-sm">Specialist paving services</span>
+              <Link href="/services" className="text-gray-300 text-sm hover:text-primary-light transition-colors">Paving services</Link>
             </div>
           </div>
         </div>

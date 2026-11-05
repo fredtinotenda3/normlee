@@ -5,7 +5,13 @@ import { primaryPhone, site, telUrl, whatsappMessages, whatsappUrl } from "@/lib
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Contact Normlee Investments for construction aggregates, building materials and paving quotes in Zimbabwe. Call or message us on WhatsApp.",
+    "Contact Normlee Investments for construction aggregates, building materials, delivery and paving quotes in Zimbabwe. Call or message us on WhatsApp.",
+  openGraph: {
+    title: "Contact Us | Normlee Investments",
+    description: "Call or message Normlee Investments on WhatsApp for materials, delivery and paving quotes.",
+    url: "/contact",
+    type: "website",
+  },
   alternates: { canonical: "/contact" },
 };
 

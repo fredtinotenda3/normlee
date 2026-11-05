@@ -1,26 +1,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Truck, HardHat, Box, Building2, ArrowRight } from "lucide-react";
-import { photos } from "@/lib/images";
+import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
+import { photos, type SitePhoto } from "@/lib/images";
 
-// Each card uses a genuine owner-supplied photograph (see lib/images.ts). The paving card shows paving
-// blocks being delivered: TODO(owner): swap in a completed-paving photo once supplied.
-const services = [
+// Each card uses a genuine owner-supplied photograph (see lib/images.ts) or, where no matching
+// photograph exists yet, a clearly labelled placeholder. No photograph is repeated on the homepage.
+// - Paving: the only supplied paving photo shows block DELIVERY and is used on /services, so this card
+//   keeps a placeholder until a completed-paving photo is supplied. TODO(owner)
+// - Building Materials: no genuine photo of bricks/topsoil/gravel/rubble yet. TODO(owner)
+interface OverviewCard {
+  icon: typeof Truck;
+  title: string;
+  description: string;
+  items: string[];
+  href: string;
+  cta: string;
+  photo?: SitePhoto;
+  placeholderSubject?: string;
+}
+
+const services: OverviewCard[] = [
   {
     icon: Truck,
     title: "Bulk Aggregates",
     description: "Stones, sand and base materials supplied in bulk. Contact us to arrange delivery.",
     items: ["3/4 & 7mm Stones", "River & Pit Sand", "Crusher Runner", "Quarry Dust"],
     href: "/products",
-    photo: photos.heroLoading,
+    cta: "View products",
+    photo: photos.earthHeap,
   },
   {
     icon: HardHat,
-    title: "Specialist Paving",
-    description: "Paving services for residential and industrial projects.",
+    title: "Paving Services",
+    description: "Paving services for residential and industrial projects. Request a quote.",
     items: ["Driveways", "Walkways", "Industrial Paving", "Decorative Surfaces"],
     href: "/services",
-    photo: photos.pavingDeliveryDetail,
+    cta: "View services",
+    placeholderSubject: "Completed paving project",
   },
   {
     icon: Box,
@@ -28,7 +45,8 @@ const services = [
     description: "Bricks and fill materials for your construction needs.",
     items: ["Red Common Bricks", "Top Soil", "Gravel", "Coal & Brick Rubble"],
     href: "/products",
-    photo: photos.sandStockpile,
+    cta: "View products",
+    placeholderSubject: "Bricks and fill materials",
   },
   {
     icon: Building2,
@@ -36,6 +54,7 @@ const services = [
     description: "Bulk materials delivered to site. Contact us to confirm availability and charges for your location.",
     items: ["Delivery to site", "Quoted per location", "Bulk orders"],
     href: "/contact",
+    cta: "Ask about delivery",
     photo: photos.tipperFill,
   },
 ];
@@ -55,7 +74,7 @@ export default function ServicesOverview() {
             </h2>
           </div>
           <p className="text-gray-600 max-w-sm md:text-right">
-            Construction materials and paving services from one supplier.
+            Construction materials, delivery and paving services from one supplier.
           </p>
         </div>
 
@@ -67,14 +86,21 @@ export default function ServicesOverview() {
               href={service.href}
               className="group relative overflow-hidden rounded-2xl bg-gray-800 flex flex-col min-h-[380px] shadow-md hover:shadow-2xl transition-all duration-300"
             >
-              <Image
-                src={service.photo.src}
-                width={service.photo.width}
-                height={service.photo.height}
-                alt={service.photo.alt}
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              {service.photo ? (
+                <Image
+                  src={service.photo.src}
+                  width={service.photo.width}
+                  height={service.photo.height}
+                  alt={service.photo.alt}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <PhotoPlaceholder
+                  subject={service.placeholderSubject}
+                  className="absolute inset-0 h-full w-full pb-40"
+                />
+              )}
               <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/90 via-gray-900/65 to-gray-900/20" />
 
               {/* Orange top accent bar on hover/focus */}
@@ -102,7 +128,7 @@ export default function ServicesOverview() {
                 </ul>
 
                 <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all">
-                  Learn More <ArrowRight size={16} aria-hidden="true" />
+                  {service.cta} <ArrowRight size={16} aria-hidden="true" />
                 </div>
               </div>
             </Link>

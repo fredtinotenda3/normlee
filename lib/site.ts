@@ -40,6 +40,10 @@ export const site = {
   deliveryAreas: ["Borrowdale", "Hatcliffe", "Surrounding areas (contact us for details)"],
 } as const;
 
+/** Short factual description reused in metadata and structured data. */
+export const siteDescription =
+  "Normlee Investments supplies construction aggregates (stones, sand, crusher run), bricks and fill materials, and offers delivery and paving services in Zimbabwe. Operating since 2010.";
+
 export const primaryPhone = site.phones[0];
 
 export function telUrl(e164: string): string {
@@ -58,4 +62,11 @@ export const whatsappMessages = {
   paving: "Hi Normlee Investments, I'm interested in paving services. Please provide a quote.",
   materials: "Hi Normlee Investments, I need help choosing materials for my project.",
   question: "Hi Normlee Investments, I have a question.",
+  feedback: "Hi Normlee Investments, I would like to share feedback about my experience with you.",
+  delivery: "Hi Normlee Investments, I would like to ask about delivery of materials to my site.",
 } as const;
+
+/** WhatsApp message asking about one specific product. */
+export function productEnquiryMessage(productName: string): string {
+  return `Hi Normlee Investments, I would like to enquire about ${productName}. Please confirm availability, price and delivery to my site.`;
+}

@@ -3,7 +3,9 @@ import { Inter, Poppins } from "next/font/google";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/shared/FloatingWhatsApp";
-import { site } from "@/lib/site";
+import JsonLd from "@/components/shared/JsonLd";
+import { site, siteDescription } from "@/lib/site";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,16 +27,21 @@ export const metadata: Metadata = {
     default: "Normlee Investments | Construction Aggregates & Paving Services in Zimbabwe",
     template: "%s | Normlee Investments",
   },
-  description:
-    "Normlee Investments supplies construction aggregates (stones, sand, crusher run), bricks and specialist paving services in Zimbabwe. Operating since 2010. Request a quote on WhatsApp or by phone.",
+  description: siteDescription,
   authors: [{ name: site.name }],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Normlee Investments | Construction Aggregates & Paving Specialist",
-    description:
-      "Construction aggregates, bricks and specialist paving services in Zimbabwe. Operating since 2010.",
+    title: "Normlee Investments | Construction Aggregates & Paving Services in Zimbabwe",
+    description: siteDescription,
+    url: "/",
     type: "website",
     locale: "en_ZW",
     siteName: site.name,
+  },
+  twitter: {
+    card: "summary",
+    title: "Normlee Investments | Construction Aggregates & Paving Services in Zimbabwe",
+    description: siteDescription,
   },
   robots: { index: true, follow: true },
 };
@@ -61,6 +68,8 @@ export default function RootLayout({
         </main>
         <Footer />
         <FloatingWhatsApp />
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
       </body>
     </html>
   );

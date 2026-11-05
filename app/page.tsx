@@ -2,6 +2,7 @@ import Link from "next/link";
 import Hero from "@/components/sections/Hero";
 import ServicesOverview from "@/components/sections/ServicesOverview";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import ExploreLinks from "@/components/sections/ExploreLinks";
 import PriceCalculator from "@/components/shared/PriceCalculator";
 import { Phone, MessageCircle, ArrowRight } from "lucide-react";
 import { formatPrice, formatUnit, getFeaturedProducts } from "@/lib/pricing";
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Hero />
       <ServicesOverview />
       <WhyChooseUs />
+      <ExploreLinks />
 
       {/* Pricing Section */}
       <section className="relative py-24 bg-white overflow-hidden">
@@ -74,7 +76,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6 relative z-10 text-center">
           <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">Ready to Build?</h2>
           <p className="text-white text-lg mb-10 max-w-xl mx-auto">
-            Request a quote today. We&apos;re here to help with your construction material and paving needs.
+            Request a quote today. Tell us what you need and we will help with materials, delivery and paving enquiries.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

@@ -4,14 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { navItems } from "@/lib/nav";
 import { primaryPhone, telUrl, whatsappMessages, whatsappUrl } from "@/lib/site";
-
-const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Products", href: "/products" },
-  { name: "Paving Services", href: "/services" },
-  { name: "Contact", href: "/contact" },
-];
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -38,7 +32,7 @@ export default function Navigation() {
       <div className="h-1 bg-primary w-full" aria-hidden="true" />
 
       <nav aria-label="Main" className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div
@@ -57,7 +51,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -76,14 +70,15 @@ export default function Navigation() {
           </div>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href={telUrl(primaryPhone.e164)}
               className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-secondary rounded-lg hover:border-primary-strong hover:text-primary-strong transition-colors text-sm font-semibold"
             >
               <Phone size={16} aria-hidden="true" />
-              <span className="sr-only">Call </span>
-              {primaryPhone.display}
+              <span className="sr-only">Call {primaryPhone.display}</span>
+              <span aria-hidden="true" className="hidden xl:inline">{primaryPhone.display}</span>
+              <span aria-hidden="true" className="xl:hidden">Call</span>
             </a>
             <a
               href={whatsappHref}
@@ -101,7 +96,7 @@ export default function Navigation() {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 bg-transparent text-secondary"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 bg-transparent text-secondary"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -112,7 +107,7 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden py-5 border-t border-gray-100">
+          <div id="mobile-menu" className="lg:hidden py-5 border-t border-gray-100 max-h-[calc(100svh-5rem)] overflow-y-auto">
             {navItems.map((item) => (
               <Link
                 key={item.name}

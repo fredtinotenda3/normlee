@@ -1,195 +1,264 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { HardHat, Home, Building2, Leaf, CheckCircle2, Truck, Phone, MessageCircle } from "lucide-react";
-import PavingPattern from "@/components/shared/PavingPattern";
+import Link from "next/link";
+import { HardHat, Home, Building2, Leaf, CheckCircle2, Truck, Package, MessageCircle, ArrowRight } from "lucide-react";
+import PageHeader from "@/components/shared/PageHeader";
 import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
+import CtaBanner from "@/components/shared/CtaBanner";
 import { photos } from "@/lib/images";
-import { primaryPhone, telUrl, whatsappMessages, whatsappUrl } from "@/lib/site";
+import { whatsappMessages, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Paving Services",
+  title: "Services: Material Supply, Delivery & Paving",
   description:
-    "Specialist paving services in Zimbabwe: residential driveways, industrial paving and decorative walkways. Request a quote from Normlee Investments.",
+    "Normlee Investments services: bulk material supply, delivery to site (confirmed per location) and paving for residential driveways, industrial sites and decorative walkways.",
   alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services: Material Supply, Delivery & Paving | Normlee Investments",
+    description: "Material supply, delivery to site and paving services. Request a quote.",
+    url: "/services",
+    type: "website",
+  },
 };
 
-// TODO(owner): confirm each service and its feature list. Features that made guarantees
-// ("Durability guaranteed") have been removed until verified.
-const services = [
+// Content audit (Phase 4). Removed unsupported claims: "Installation by skilled professionals",
+// "Industrial-grade materials", "Slip-resistant finish", "Custom designs", "Multiple finish options",
+// "Colour options", "Low maintenance", "Suited to heavy use", "Quality materials",
+// "Clean and professional workmanship". Earlier phases already removed guarantees and warranties.
+// TODO(owner): confirm which paving types you offer, the materials and finishes available, who carries out
+// installation, and any workmanship terms. Add verified detail back here when confirmed.
+
+const pavingTypes = [
   {
     icon: Home,
-    title: "Residential Driveways",
-    description: "Driveways for homes, designed for everyday use.",
-    features: ["Custom designs", "Multiple finish options", "Low maintenance"],
+    title: "Residential driveways",
+    description: "Paving for driveways at homes and other residential properties.",
     photo: "Completed residential driveway",
   },
   {
     icon: Building2,
-    title: "Industrial Paving",
-    description: "Paving for industrial complexes, warehouses and commercial properties.",
-    features: ["Suited to heavy use", "Industrial-grade materials", "Commercial and industrial sites"],
+    title: "Industrial and commercial paving",
+    description: "Paving for industrial, warehouse and commercial properties.",
     photo: "Completed industrial or commercial paving",
   },
   {
     icon: Leaf,
-    title: "Decorative Walkways",
-    description: "Pathways and walkways that combine function with appearance.",
-    features: ["Patterned designs", "Colour options", "Slip-resistant finish"],
+    title: "Decorative walkways",
+    description: "Pathways and walkways for gardens and properties.",
     photo: "Completed decorative walkway",
   },
 ];
 
-// TODO(owner): "Warranty on all paving work" removed until the warranty terms are confirmed.
-const benefits = [
-  "Installation by skilled professionals",
-  "Quality materials",
-  "Quotes tailored to your project",
-  "Clean and professional workmanship",
+const supplyBenefits = [
+  "Stones, sand, base materials, bricks and fill in one place",
+  "Published prices for common materials",
+  "Product enquiries by WhatsApp or phone",
 ];
+
+const deliveryBenefits = [
+  "Bulk materials can be delivered to your site",
+  "Availability and charges are confirmed for your location",
+  "Delivery is arranged when you order",
+];
+
+const pavingBenefits = [
+  "Quotes prepared for your project",
+  "Enquiries for homes, commercial and industrial properties",
+  "Site details are discussed when you request a quote",
+];
+
+function BenefitList({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-3 text-gray-700">
+          <CheckCircle2 size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-primary-strong" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative flex items-end overflow-hidden bg-gray-900 pt-32 pb-16">
-        <div className="absolute inset-0 bg-linear-to-br from-gray-800 via-gray-900 to-black" aria-hidden="true" />
-        <PavingPattern />
-        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary" aria-hidden="true" />
+      <PageHeader
+        eyebrow="Our services"
+        icon={HardHat}
+        title="Services"
+        description="Material supply, delivery and paving are separate services. Here is what each one covers."
+      />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <p className="inline-flex items-center gap-2 bg-primary/20 border border-primary/50 text-primary px-4 py-1.5 rounded-full text-sm font-semibold tracking-widest uppercase mb-5">
-            <HardHat size={14} aria-hidden="true" />
-            Paving Services
-          </p>
-          <h1 className="text-5xl md:text-6xl font-heading font-extrabold text-white leading-tight mb-4">
-            Specialist in Paving
-          </h1>
-          <p className="text-gray-200 text-lg max-w-xl">
-            Paving for residential and industrial projects. Request a quote for your project.
-          </p>
-        </div>
-      </section>
-
-      {/* Services Cards */}
-      <section className="py-24 bg-gray-50">
+      {/* At a glance */}
+      <section className="bg-white py-14 border-b border-gray-100">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-14">
-            <p className="text-primary-strong font-semibold text-sm uppercase tracking-widest mb-2">Our Services</p>
-            <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-secondary">What We Do</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <article
-                key={service.title}
-                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
-              >
-                <PhotoPlaceholder subject={service.photo} className="h-52" />
-                <div className="p-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                    <service.icon aria-hidden="true" className="w-6 h-6 text-primary-strong" />
-                  </div>
-                  <h3 className="text-xl font-heading font-bold text-secondary mb-3">{service.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4 leading-relaxed">{service.description}</p>
-                  <ul className="space-y-1.5">
-                    {service.features.map((feat) => (
-                      <li key={feat} className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 size={14} aria-hidden="true" className="text-primary-strong shrink-0" />
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
+          <h2 className="sr-only">Services at a glance</h2>
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-3 max-w-5xl mx-auto">
+            {[
+              { href: "#supply", label: "Material supply", text: "We sell bulk materials.", icon: Package },
+              { href: "#delivery", label: "Delivery", text: "We can bring materials to your site.", icon: Truck },
+              { href: "#paving", label: "Paving installation", text: "Paving work quoted per project.", icon: HardHat },
+            ].map((s) => (
+              <li key={s.href}>
+                <a
+                  href={s.href}
+                  className="flex h-full items-start gap-4 rounded-xl border border-gray-200 p-5 hover:border-primary-strong transition-colors"
+                >
+                  <s.icon aria-hidden="true" className="h-6 w-6 shrink-0 text-primary-strong" />
+                  <span>
+                    <span className="block font-heading font-bold text-secondary">{s.label}</span>
+                    <span className="block text-sm text-gray-600">{s.text}</span>
+                  </span>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/*
-              Genuine photograph of paving blocks being delivered to a site. It shows delivery, not
-              installation. TODO(owner): supply photos of completed paving and the paving team.
-            */}
-            <figure className="mx-auto w-full max-w-[368px] lg:mx-0 lg:justify-self-center">
-              <Image
-                src={photos.pavingDeliveryCrane.src}
-                width={photos.pavingDeliveryCrane.width}
-                height={photos.pavingDeliveryCrane.height}
-                alt={photos.pavingDeliveryCrane.alt}
-                sizes="(min-width: 1024px) 368px, 90vw"
-                className="h-auto w-full rounded-2xl object-cover shadow-xl"
-              />
-              <figcaption className="mt-3 text-sm text-gray-600">
-                Paving blocks being offloaded at a site by grab crane.
-              </figcaption>
-            </figure>
-
-            <div>
-              <p className="text-primary-strong font-semibold text-sm uppercase tracking-widest mb-3">Our Approach</p>
-              <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-secondary leading-tight mb-8">
-                Why Choose Our
-                <br />
-                Paving Services?
-              </h2>
-              <ul className="space-y-4 mb-10">
-                {benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-center gap-3">
-                    <div aria-hidden="true" className="w-6 h-6 bg-primary-strong rounded-full flex items-center justify-center shrink-0">
-                      <CheckCircle2 size={14} className="text-white" />
-                    </div>
-                    <span className="text-gray-700">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* Material supply */}
+      <section id="supply" className="scroll-mt-24 bg-gray-50 py-20">
+        <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <p className="text-primary-strong font-semibold text-sm uppercase tracking-widest mb-3">Service 1</p>
+            <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-secondary mb-4">Material supply</h2>
+            <p className="text-gray-700 leading-relaxed mb-6">
+              We sell stones, river and pit sand, crusher runner, quarry dust, bricks and fill materials. Supply
+              means the material itself. Delivery and paving installation are separate services, described
+              below.
+            </p>
+            <BenefitList items={supplyBenefits} />
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 bg-primary-strong text-white px-6 py-3 rounded-lg font-heading font-bold hover:bg-primary-strong-hover transition-colors"
+              >
+                View products and prices <ArrowRight size={16} aria-hidden="true" />
+              </Link>
               <a
-                href={whatsappUrl(whatsappMessages.paving)}
+                href={whatsappUrl(whatsappMessages.materials)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-primary-strong text-white px-8 py-4 rounded-lg font-heading font-bold hover:bg-primary-strong-hover transition-colors shadow-lg shadow-primary/20"
+                className="inline-flex items-center gap-2 border-2 border-primary-strong text-primary-strong px-6 py-3 rounded-lg font-heading font-bold hover:bg-primary-strong hover:text-white transition-colors"
               >
-                <Truck size={20} aria-hidden="true" />
-                Request a Quote
+                <MessageCircle size={16} aria-hidden="true" />
+                Enquire about materials
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
+            </div>
+          </div>
+          <PhotoPlaceholder subject="Materials supplied by Normlee" className="h-72 rounded-2xl" />
+        </div>
+      </section>
+
+      {/* Delivery */}
+      <section id="delivery" className="scroll-mt-24 bg-white py-20">
+        <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Genuine photograph of a block delivery. It shows delivery, not installation. */}
+          <figure className="mx-auto w-full max-w-[368px] lg:mx-0 lg:justify-self-center">
+            <Image
+              src={photos.pavingDeliveryCrane.src}
+              width={photos.pavingDeliveryCrane.width}
+              height={photos.pavingDeliveryCrane.height}
+              alt={photos.pavingDeliveryCrane.alt}
+              sizes="(min-width: 1024px) 368px, 90vw"
+              className="h-auto w-full rounded-2xl object-cover shadow-xl"
+            />
+            <figcaption className="mt-3 text-sm text-gray-600">
+              A delivery of stacked blocks. This photograph shows a delivery, not a paving installation.
+            </figcaption>
+          </figure>
+          <div>
+            <p className="text-primary-strong font-semibold text-sm uppercase tracking-widest mb-3">Service 2</p>
+            <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-secondary mb-4">Delivery</h2>
+            <p className="text-gray-700 leading-relaxed mb-6">
+              Delivery means bringing materials to your site. Whether we can deliver to your location, and the
+              charge, is confirmed when you enquire. We do not state a delivery area or time frame on this page
+              until it is confirmed with you.
+            </p>
+            <BenefitList items={deliveryBenefits} />
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={whatsappUrl(whatsappMessages.delivery)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-primary-strong text-white px-6 py-3 rounded-lg font-heading font-bold hover:bg-primary-strong-hover transition-colors"
+              >
+                <Truck size={16} aria-hidden="true" />
+                Ask about delivery
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 border-2 border-primary-strong text-primary-strong px-6 py-3 rounded-lg font-heading font-bold hover:bg-primary-strong hover:text-white transition-colors"
+              >
+                Contact details
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="relative py-24 overflow-hidden bg-primary-strong">
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">
-            Ready to Transform Your Space?
-          </h2>
-          <p className="text-white text-lg mb-10 max-w-xl mx-auto">
-            Tell us about your paving project and request a quote.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={whatsappUrl(whatsappMessages.paving)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-white text-primary-strong px-8 py-4 rounded-lg font-heading font-bold hover:bg-gray-100 transition-colors"
-            >
-              <MessageCircle size={20} aria-hidden="true" />
-              Request a Quote
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-            <a
-              href={telUrl(primaryPhone.e164)}
-              className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-lg font-heading font-bold hover:bg-white hover:text-primary-strong transition-colors"
-            >
-              <Phone size={20} aria-hidden="true" />
-              Call Now
-            </a>
+      {/* Paving installation */}
+      <section id="paving" className="scroll-mt-24 bg-gray-50 py-20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mb-12">
+            <p className="text-primary-strong font-semibold text-sm uppercase tracking-widest mb-3">Service 3</p>
+            <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-secondary mb-4">
+              Paving installation
+            </h2>
+            <p className="text-gray-700 leading-relaxed mb-6">
+              Paving installation means laying a paved surface at your site. It is quoted per project. Request a
+              quote and tell us what you need.
+            </p>
+            <BenefitList items={pavingBenefits} />
           </div>
+
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pavingTypes.map((type) => (
+              <li key={type.title}>
+                <article className="h-full overflow-hidden rounded-2xl bg-white shadow-md">
+                  <PhotoPlaceholder subject={type.photo} className="h-52" />
+                  <div className="p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                      <type.icon aria-hidden="true" className="h-6 w-6 text-primary-strong" />
+                    </div>
+                    <h3 className="mb-2 text-xl font-heading font-bold text-secondary">{type.title}</h3>
+                    <p className="mb-5 text-sm leading-relaxed text-gray-600">{type.description}</p>
+                    <a
+                      href={whatsappUrl(
+                        `Hi Normlee Investments, I would like a quote for paving: ${type.title.toLowerCase()}.`,
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-strong hover:underline"
+                    >
+                      <MessageCircle size={14} aria-hidden="true" />
+                      Request a quote
+                      <span className="sr-only"> for {type.title.toLowerCase()} (opens in a new tab)</span>
+                    </a>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm text-gray-600">
+            Photographs of completed paving will be added when verified. See also our{" "}
+            <Link href="/projects" className="font-semibold text-primary-strong underline">
+              projects page
+            </Link>
+            .
+          </p>
         </div>
       </section>
+
+      <CtaBanner
+        title="Ready to request a quote?"
+        text="Tell us whether you need materials, delivery, paving or a combination."
+        message={whatsappMessages.paving}
+        whatsappLabel="Request a Quote"
+      />
     </>
   );
 }
