@@ -40,6 +40,7 @@ export default function Hero() {
             Build With
             <br />
             <span className="text-primary">Confidence.</span>
+            <span className="sr-only"> Construction aggregates, bricks and paving services in Zimbabwe</span>
           </h1>
           <p className="text-xl text-gray-200 mb-10 leading-relaxed max-w-xl">
             Bulk construction aggregates, bricks and paving services. Contact us for a quote and to ask about
@@ -78,7 +79,7 @@ export default function Hero() {
           </dl>
         </div>
 
-        {/* Genuine site photograph at its native size so it stays sharp. Hidden on small screens to keep the CTAs above the fold. */}
+        {/* Genuine site photograph at its native size so it stays sharp. Hidden on small screens to keep the CTAs above the fold. Not preloaded: a preload would also download it on mobile, where it is hidden (Phase 4.5). */}
         <figure className="hidden lg:block relative w-[368px] shrink-0">
           <div aria-hidden="true" className="absolute -bottom-4 -right-4 h-full w-full rounded-2xl border-2 border-primary/60" />
           <Image
@@ -86,7 +87,6 @@ export default function Hero() {
             width={photos.heroLoading.width}
             height={photos.heroLoading.height}
             alt={photos.heroLoading.alt}
-            preload
             sizes="368px"
             className="relative h-auto w-full rounded-2xl object-cover shadow-2xl ring-1 ring-white/10"
           />

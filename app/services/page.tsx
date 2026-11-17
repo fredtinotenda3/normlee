@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { HardHat, Home, Building2, Leaf, CheckCircle2, Truck, Package, MessageCircle, ArrowRight } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
 import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
 import CtaBanner from "@/components/shared/CtaBanner";
+import FaqList from "@/components/shared/FaqList";
+import JsonLd from "@/components/shared/JsonLd";
+import { servicesJsonLd } from "@/lib/structuredData";
 import { photos } from "@/lib/images";
 import { whatsappMessages, whatsappUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Services: Material Supply, Delivery & Paving",
+export const metadata: Metadata = pageMetadata({
+  title: "Material Supply, Delivery & Paving",
   description:
-    "Normlee Investments services: bulk material supply, delivery to site (confirmed per location) and paving for residential driveways, industrial sites and decorative walkways.",
-  alternates: { canonical: "/services" },
-  openGraph: {
-    title: "Services: Material Supply, Delivery & Paving | Normlee Investments",
-    description: "Material supply, delivery to site and paving services. Request a quote.",
-    url: "/services",
-    type: "website",
-  },
-};
+    "Bulk material supply, delivery to site (confirmed per location) and paving installation quoted per project. See what each Normlee service covers and request a quote.",
+  path: "/services",
+});
 
 // Content audit (Phase 4). Removed unsupported claims: "Installation by skilled professionals",
 // "Industrial-grade materials", "Slip-resistant finish", "Custom designs", "Multiple finish options",
@@ -83,10 +81,14 @@ function BenefitList({ items }: { items: string[] }) {
 export default function ServicesPage() {
   return (
     <>
+      {servicesJsonLd.map((s) => (
+        <JsonLd key={s.name} data={s} />
+      ))}
       <PageHeader
+        crumbs={[{ name: "Services", href: "/services" }]}
         eyebrow="Our services"
         icon={HardHat}
-        title="Services"
+        title="Material Supply, Delivery & Paving"
         description="Material supply, delivery and paving are separate services. Here is what each one covers."
       />
 
@@ -250,6 +252,43 @@ export default function ServicesPage() {
             </Link>
             .
           </p>
+        </div>
+      </section>
+
+      <section className="bg-white py-20">
+        <div className="container mx-auto max-w-3xl px-6">
+          <FaqList
+            headingId="services-faq"
+            items={[
+              {
+                question: "What is the difference between material supply, delivery and paving installation?",
+                answer:
+                  "Supply is the material itself. Delivery is bringing it to your site. Paving installation is laying a paved surface. They are separate services, and each is quoted or confirmed on its own.",
+              },
+              {
+                question: "Where can you deliver?",
+                answer:
+                  "Whether we can deliver to your location, and the charge, is confirmed when you enquire. We do not state a delivery area or time frame on this site until it is confirmed with you.",
+              },
+              {
+                question: "How is paving priced?",
+                answer:
+                  "Paving is quoted per project. Request a quote and tell us about your site. We do not publish paving prices.",
+              },
+              {
+                question: "Where can I see prices for materials?",
+                answer: (
+                  <>
+                    Published prices for common materials are on the{" "}
+                    <Link href="/products" className="font-semibold text-primary-strong underline">
+                      products page
+                    </Link>
+                    . Delivery charges are extra.
+                  </>
+                ),
+              },
+            ]}
+          />
         </div>
       </section>
 

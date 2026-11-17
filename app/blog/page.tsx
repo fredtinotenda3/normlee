@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { BookOpen, Clock, ArrowRight } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
@@ -6,26 +7,21 @@ import CtaBanner from "@/components/shared/CtaBanner";
 import { articles, formatArticleDate } from "@/lib/blog";
 import { whatsappMessages } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Guides & Advice",
+export const metadata: Metadata = pageMetadata({
+  title: "Guides on Stones, Sand & Paving Prep",
   description:
-    "Plain-language guides from Normlee Investments on aggregate sizes, construction sand, crusher run, choosing materials, preparing a site for paving, estimating quantities and planning delivery.",
-  alternates: { canonical: "/blog" },
-  openGraph: {
-    title: "Guides & Advice | Normlee Investments",
-    description: "Plain-language guides on construction materials, paving preparation, estimating and delivery.",
-    url: "/blog",
-    type: "website",
-  },
-};
+    "Plain-language guides on aggregate sizes, river and pit sand, crusher run, estimating cubic metres, preparing a site for paving and planning a delivery.",
+  path: "/blog",
+});
 
 export default function BlogIndexPage() {
   return (
     <>
       <PageHeader
+        crumbs={[{ name: "Blog", href: "/blog" }]}
         eyebrow="Blog"
         icon={BookOpen}
-        title="Guides & Advice"
+        title="Guides on Construction Materials & Paving"
         description="Practical, plain-language information about construction materials, paving preparation and ordering."
       />
 

@@ -41,3 +41,22 @@ grep -rn "TODO(owner)" app components lib
 
 `/`, `/products`, `/services`, `/contact`, custom 404 (`app/not-found.tsx`) and error page (`app/error.tsx`).
 `/catalog` permanently redirects (308) to `/products` (see `next.config.ts`).
+
+## SEO configuration (Phase 4.5)
+
+Set these in the hosting environment. None of them is a secret, and none is committed to the repository.
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Production origin used for canonical URLs, the sitemap, robots.txt and structured data, e.g. `https://www.example.com` (https, no trailing slash). Defaults to `https://www.normlee.net`, which is **not yet confirmed**. |
+| `NEXT_PUBLIC_SITE_INDEXABLE` | Set to `false` on staging and preview deployments to block all indexing. Leave unset in production. |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Token for Google Search Console HTML-tag verification, supplied by whoever owns the Search Console property. |
+
+Run the SEO checks against a running production build:
+
+```bash
+npm run build && npm start
+npm run seo:check            # or: node scripts/seo-check.mjs http://localhost:3000
+```
+
+See `docs/seo/` for the SEO documentation and `docs/seo/SEO_LAUNCH_CHECKLIST.md` before going live.

@@ -53,7 +53,7 @@ const services: OverviewCard[] = [
     title: "Delivery",
     description: "Bulk materials delivered to site. Contact us to confirm availability and charges for your location.",
     items: ["Delivery to site", "Quoted per location", "Bulk orders"],
-    href: "/contact",
+    href: "/services#delivery",
     cta: "Ask about delivery",
     photo: photos.tipperFill,
   },

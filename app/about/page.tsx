@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { Building, Package, Truck, HardHat, ArrowRight, CheckCircle2 } from "lucide-react";
@@ -8,17 +9,12 @@ import CtaBanner from "@/components/shared/CtaBanner";
 import { photos } from "@/lib/images";
 import { site, whatsappMessages } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "About Us",
+export const metadata: Metadata = pageMetadata({
+  title: "About Normlee Investments | Supplying Materials Since 2010",
+  absoluteTitle: true,
   description: `About ${site.name}: a Zimbabwe supplier of construction aggregates, bricks and fill, with delivery and paving services, operating since ${site.foundedYear}.`,
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: "About Normlee Investments",
-    description: `A Zimbabwe supplier of construction aggregates, bricks and fill, with delivery and paving services, operating since ${site.foundedYear}.`,
-    url: "/about",
-    type: "website",
-  },
-};
+  path: "/about",
+});
 
 // Content audit: this page states only (a) the verified founding year, (b) the product and service range
 // already listed on the site, and (c) how enquiries work. It names no founders, staff, management,
@@ -61,6 +57,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHeader
+        crumbs={[{ name: "About", href: "/about" }]}
         eyebrow="About us"
         icon={Building}
         title="About Normlee Investments"

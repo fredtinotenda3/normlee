@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import CtaBanner from "@/components/shared/CtaBanner";
+import FaqList from "@/components/shared/FaqList";
 import JsonLd from "@/components/shared/JsonLd";
 import { articles, formatArticleDate, getArticle } from "@/lib/blog";
 import { getProduct } from "@/lib/pricing";
+import { pageMetadata } from "@/lib/seo";
 import { site, whatsappMessages } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -18,19 +21,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return {};
-  return {
-    title: article.title,
-    description: article.summary,
-    alternates: { canonical: `/blog/${article.slug}` },
-    openGraph: {
-      title: article.title,
-      description: article.summary,
-      url: `/blog/${article.slug}`,
-      type: "article",
-      publishedTime: article.published,
-      authors: [site.name],
-    },
-  };
+  return pageMetadata({
+    title: article.seoTitle,
+    description: article.seoDescription,
+    path: `/blog/${article.slug}`,
+    type: "article",
+    openGraph: { publishedTime: article.published, modifiedTime: article.updated },
+  });
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -39,52 +36,41 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
 
   const index = articles.findIndex((a) => a.slug === article.slug);
-  const others = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
+  const others = article.relatedSlugs
+    .map((rs) => getArticle(rs))
+    .filter((a): a is NonNullable<ReturnType<typeof getArticle>> => a !== undefined);
   const related = article.relatedProductIds
     .map((id) => getProduct(id))
     .filter((p): p is NonNullable<ReturnType<typeof getProduct>> => p !== undefined);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: article.title,
-    description: article.summary,
+    description: article.seoDescription,
     datePublished: article.published,
+    ...(article.updated ? { dateModified: article.updated } : {}),
     mainEntityOfPage: `${site.url}/blog/${article.slug}`,
     author: { "@id": `${site.url}/#organization` },
     publisher: { "@id": `${site.url}/#organization` },
     inLanguage: "en",
   };
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${site.url}/blog` },
-      { "@type": "ListItem", position: 3, name: article.title, item: `${site.url}/blog/${article.slug}` },
-    ],
-  };
 
   return (
     <>
       <JsonLd data={articleJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
 
       <section className="relative overflow-hidden bg-gray-900 pt-20 pb-12">
         <div className="absolute inset-0 bg-linear-to-br from-gray-800 via-gray-900 to-black" aria-hidden="true" />
         <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary" aria-hidden="true" />
         <div className="container mx-auto px-6 relative z-10 max-w-3xl">
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-gray-300">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link href="/" className="hover:text-primary-light">Home</Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <Link href="/blog" className="hover:text-primary-light">Blog</Link>
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumbs
+            className="mb-5"
+            crumbs={[
+              { name: "Blog", href: "/blog" },
+              { name: article.title, href: `/blog/${article.slug}` },
+            ]}
+          />
           <h1 className="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">{article.title}</h1>
           <p className="flex items-center gap-3 text-sm text-gray-300">
             <time dateTime={article.published}>{formatArticleDate(article.published)}</time>
@@ -93,6 +79,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <Clock size={14} aria-hidden="true" />
               {article.readingMinutes} min read
             </span>
+            {article.updated && article.updated !== article.published && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>
+                  Updated <time dateTime={article.updated}>{formatArticleDate(article.updated)}</time>
+                </span>
+              </>
+            )}
           </p>
         </div>
       </section>
@@ -126,8 +120,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </h2>
               <ul className="flex flex-wrap gap-2">
                 {related.map((p) => (
-                  <li key={p.id} className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-700">
-                    {p.item}
+                  <li key={p.id}>
+                    <Link
+                      href={`/products#category-${p.category}`}
+                      className="inline-block rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-700 hover:border-primary-strong hover:text-primary-strong"
+                    >
+                      {p.item}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -139,6 +138,32 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </p>
             </aside>
           )}
+
+          {article.faqs && article.faqs.length > 0 && (
+            <div className="mb-10">
+              <FaqList
+                headingId="article-faq"
+                heading="Common questions"
+                items={article.faqs.map((f) => ({ question: f.question, answer: f.answer }))}
+              />
+            </div>
+          )}
+
+          <p className="mb-10 text-gray-700 leading-relaxed">
+            Ready to ask about an order? See the{" "}
+            <Link href="/products" className="font-semibold text-primary-strong underline">
+              materials and published prices
+            </Link>
+            , read how{" "}
+            <Link href="/services#delivery" className="font-semibold text-primary-strong underline">
+              delivery
+            </Link>{" "}
+            works, or use the{" "}
+            <Link href="/contact" className="font-semibold text-primary-strong underline">
+              contact details
+            </Link>
+            .
+          </p>
 
           <p className="rounded-xl border border-primary/20 bg-primary/10 p-4 text-sm text-secondary leading-relaxed">
             This guide gives general information only. It is not engineering or design advice, and it does not
@@ -164,7 +189,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-6">
-          <h2 className="text-2xl font-heading font-bold text-secondary mb-6">More guides</h2>
+          <h2 className="text-2xl font-heading font-bold text-secondary mb-6">Related guides</h2>
           <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {others.map((a) => (
               <li key={a.slug} className="rounded-2xl bg-white p-6 shadow-md">

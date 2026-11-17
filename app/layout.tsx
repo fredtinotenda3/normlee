@@ -4,8 +4,8 @@ import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/shared/FloatingWhatsApp";
 import JsonLd from "@/components/shared/JsonLd";
-import { site, siteDescription } from "@/lib/site";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/structuredData";
+import { googleSiteVerification, site, siteDescription, siteIndexable } from "@/lib/site";
+import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,14 +24,14 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Normlee Investments | Construction Aggregates & Paving Services in Zimbabwe",
+    default: "Building Materials & Paving in Zimbabwe | Normlee Investments",
     template: "%s | Normlee Investments",
   },
   description: siteDescription,
   authors: [{ name: site.name }],
-  alternates: { canonical: "/" },
+  // No canonical here: each page sets its own. A site-wide canonical of "/" leaked onto the 404 page.
   openGraph: {
-    title: "Normlee Investments | Construction Aggregates & Paving Services in Zimbabwe",
+    title: "Building Materials & Paving in Zimbabwe | Normlee Investments",
     description: siteDescription,
     url: "/",
     type: "website",
@@ -40,16 +40,19 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Normlee Investments | Construction Aggregates & Paving Services in Zimbabwe",
+    title: "Building Materials & Paving in Zimbabwe | Normlee Investments",
     description: siteDescription,
   },
-  robots: { index: true, follow: true },
+  robots: siteIndexable ? { index: true, follow: true } : { index: false, follow: false },
+  ...(googleSiteVerification ? { verification: { google: googleSiteVerification } } : {}),
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
 };
+
+const localBusiness = localBusinessJsonLd();
 
 export default function RootLayout({
   children,
@@ -70,6 +73,7 @@ export default function RootLayout({
         <FloatingWhatsApp />
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={websiteJsonLd} />
+        {localBusiness && <JsonLd data={localBusiness} />}
       </body>
     </html>
   );

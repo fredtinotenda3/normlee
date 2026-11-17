@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata, projectsIndexable } from "@/lib/seo";
 import Image from "next/image";
 import { FolderOpen, MapPin } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
@@ -8,18 +9,13 @@ import { photos } from "@/lib/images";
 import { getProjectsByCategory, projectCategories } from "@/lib/projects";
 import { whatsappMessages } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Projects",
+export const metadata: Metadata = pageMetadata({
+  title: "Projects and Delivery Photographs",
   description:
-    "Normlee Investments project gallery. Verified residential, commercial and industrial projects will be published here, alongside photographs of material deliveries and site operations.",
-  alternates: { canonical: "/projects" },
-  openGraph: {
-    title: "Projects | Normlee Investments",
-    description: "Project gallery and photographs of material deliveries and site operations.",
-    url: "/projects",
-    type: "website",
-  },
-};
+    "Photographs of Normlee truck deliveries and site operations. Verified project work will be added as photographs and details are confirmed.",
+  path: "/projects",
+  index: projectsIndexable,
+});
 
 // Delivery and site-operation photographs. These are genuine, but they are NOT completed paving
 // installations and must never be described as such.
@@ -34,6 +30,7 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHeader
+        crumbs={[{ name: "Projects", href: "/projects" }]}
         eyebrow="Our work"
         icon={FolderOpen}
         title="Projects"

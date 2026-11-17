@@ -1,29 +1,86 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import ProductTable from "@/components/shared/ProductTable";
 import PriceCalculator from "@/components/shared/PriceCalculator";
 import PageHeader from "@/components/shared/PageHeader";
+import FaqList from "@/components/shared/FaqList";
 import { MessageCircle, Package, Info } from "lucide-react";
 import { photos } from "@/lib/images";
-import { formatPrice, formatUnit, products } from "@/lib/pricing";
+import { availableOnRequest, formatPrice, formatUnit, products } from "@/lib/pricing";
 import { categoryInfo, productInfo } from "@/lib/productInfo";
 import { productEnquiryMessage, whatsappMessages, whatsappUrl } from "@/lib/site";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Products & Prices",
+export const metadata: Metadata = pageMetadata({
+  title: "Stones, Sand & Crusher Run: Prices",
   description:
-    "Construction aggregates and building materials in Zimbabwe: stones, river sand, pit sand, crusher run, quarry dust, bricks and fill. View published prices and request a quote.",
-  alternates: { canonical: "/products" },
-  openGraph: {
-    title: "Products & Prices | Normlee Investments",
-    description: "Stones, sand, crusher run, quarry dust, bricks and fill. View published prices and request a quote.",
-    url: "/products",
-    type: "website",
-  },
+    "Published prices for 3/4, 7mm and 10mm stones, river and pit sand, crusher runner, quarry dust, bricks and fill in Zimbabwe. Availability confirmed on enquiry.",
+  path: "/products",
+});
+
+// Guides that explain each category (internal links; none of these state specifications).
+const categoryGuides: Record<string, { label: string; href: string }> = {
+  Stones: { label: "Guide: what 3/4, 10mm and 7mm stones mean", href: "/blog/understanding-aggregate-sizes" },
+  Sand: { label: "Guide: river sand vs pit sand", href: "/blog/types-of-construction-sand" },
+  Base: { label: "Guide: what crusher run is and where it is used", href: "/blog/crusher-run-and-its-applications" },
+  Bricks: { label: "Guide: estimating quantities", href: "/blog/estimating-material-quantities" },
+  "Fill/Soil": { label: "Guide: choosing materials for your project", href: "/blog/choosing-suitable-construction-materials" },
 };
+
+const faqs = [
+  {
+    question: "What materials does Normlee Investments sell?",
+    answer: `The price list covers 3/4, 7mm and 10mm stones, river sand, pit sand, crusher runner, quarry dust, red common bricks, black top soil and gravel. ${availableOnRequest.join(", ")} are available on request.`,
+  },
+  {
+    question: "How are prices shown?",
+    answer:
+      "Prices are per cubic metre (m³), except bricks, which are per 1,000. They are the published prices and are confirmed when you order.",
+  },
+  {
+    question: "Is delivery included in the price?",
+    answer: (
+      <>
+        No. Delivery charges are extra and depend on your location. See{" "}
+        <Link href="/services#delivery" className="font-semibold text-primary-strong underline">
+          delivery information
+        </Link>{" "}
+        or ask us on WhatsApp.
+      </>
+    ),
+  },
+  {
+    question: "What does 3/4 stone mean?",
+    answer: (
+      <>
+        The name usually refers to a nominal stone size of about 3/4 inch, roughly 19 mm. Read our{" "}
+        <Link href="/blog/understanding-aggregate-sizes" className="font-semibold text-primary-strong underline">
+          guide to aggregate sizes
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    question: "Can I check availability before I order?",
+    answer: "Yes. Availability is not guaranteed until we confirm it, so message us or call before you arrange a truck.",
+  },
+  {
+    question: "How do I work out how many cubic metres I need?",
+    answer: (
+      <>
+        Multiply length by width by depth, in metres. Our{" "}
+        <Link href="/blog/estimating-material-quantities" className="font-semibold text-primary-strong underline">
+          estimating guide
+        </Link>{" "}
+        has a worked example and notes on allowing for settling.
+      </>
+    ),
+  },
+];
 
 // Group products by their category in lib/pricing.ts (the single source of truth for prices).
 const categories = Object.entries(
@@ -37,9 +94,10 @@ export default function ProductsPage() {
   return (
     <>
       <PageHeader
+        crumbs={[{ name: "Products", href: "/products" }]}
         eyebrow="Materials"
         icon={Package}
-        title="Products & Prices"
+        title="Construction Materials & Published Prices"
         description="Construction aggregates, bricks and fill materials. All prices per cubic metre (m³) unless specified otherwise."
       />
 
@@ -64,8 +122,8 @@ export default function ProductsPage() {
               return (
                 <section
                   key={categoryKey}
+                  className="scroll-mt-24 overflow-hidden rounded-2xl bg-white shadow-md"
                   aria-labelledby={`category-${categoryKey}`}
-                  className="overflow-hidden rounded-2xl bg-white shadow-md"
                 >
                   <div className="h-1.5 bg-primary" aria-hidden="true" />
                   {categoryKey === "Sand" && (
@@ -82,7 +140,15 @@ export default function ProductsPage() {
                     <h3 id={`category-${categoryKey}`} className="text-xl font-heading font-bold text-secondary">
                       {info?.title ?? categoryKey}
                     </h3>
-                    {info && <p className="mt-1 mb-5 text-sm text-gray-600">{info.blurb}</p>}
+                    {info && <p className="mt-1 text-sm text-gray-600">{info.blurb}</p>}
+                    {categoryGuides[categoryKey] && (
+                      <p className="mt-1 mb-5 text-sm">
+                        <Link href={categoryGuides[categoryKey].href} className="font-semibold text-primary-strong hover:underline">
+                          {categoryGuides[categoryKey].label}
+                        </Link>
+                      </p>
+                    )}
+                    {!categoryGuides[categoryKey] && <div className="mb-5" />}
                     <ul className="divide-y divide-gray-100">
                       {items.map((item) => {
                         const detail = productInfo[item.id];
@@ -141,7 +207,7 @@ export default function ProductsPage() {
                 <p className="text-secondary text-sm leading-relaxed">
                   <strong className="font-semibold text-secondary">Delivery:</strong> contact us to confirm
                   delivery availability, delivery charges and any bulk-order terms for your location. See{" "}
-                  <Link href="/services#delivery" className="font-semibold text-primary-strong underline">
+                  <Link href="/services#delivery" className="font-semibold text-secondary underline">
                     delivery information
                   </Link>
                   .
@@ -176,6 +242,10 @@ export default function ProductsPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-16 max-w-3xl">
+            <FaqList headingId="products-faq" items={faqs} />
           </div>
         </div>
       </div>

@@ -1,27 +1,24 @@
 import type { Metadata } from "next";
+import { pageMetadata, testimonialsIndexable } from "@/lib/seo";
 import { MessageSquareQuote, MessageCircle } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
 import CtaBanner from "@/components/shared/CtaBanner";
 import { testimonials } from "@/lib/testimonials";
 import { whatsappMessages, whatsappUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Customer Testimonials",
   description:
-    "Customer feedback for Normlee Investments. Testimonials are published only when verified feedback and permission have been received.",
-  alternates: { canonical: "/testimonials" },
-  openGraph: {
-    title: "Customer Testimonials | Normlee Investments",
-    description: "Verified customer feedback for Normlee Investments.",
-    url: "/testimonials",
-    type: "website",
-  },
-};
+    "Customer feedback for Normlee Investments, published only with the customer's permission.",
+  path: "/testimonials",
+  index: testimonialsIndexable,
+});
 
 export default function TestimonialsPage() {
   return (
     <>
       <PageHeader
+        crumbs={[{ name: "Testimonials", href: "/testimonials" }]}
         eyebrow="Customer feedback"
         icon={MessageSquareQuote}
         title="Testimonials"

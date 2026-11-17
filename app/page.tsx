@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/sections/Hero";
 import ServicesOverview from "@/components/sections/ServicesOverview";
@@ -6,7 +7,16 @@ import ExploreLinks from "@/components/sections/ExploreLinks";
 import PriceCalculator from "@/components/shared/PriceCalculator";
 import { Phone, MessageCircle, ArrowRight } from "lucide-react";
 import { formatPrice, formatUnit, getFeaturedProducts } from "@/lib/pricing";
+import { pageMetadata } from "@/lib/seo";
 import { primaryPhone, telUrl, whatsappMessages, whatsappUrl } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Building Materials & Paving in Zimbabwe | Normlee Investments",
+  absoluteTitle: true,
+  description:
+    "Stones, river and pit sand, crusher runner, bricks and fill sold in bulk, with delivery and paving services in Zimbabwe. Published prices. Operating since 2010.",
+  path: "/",
+});
 
 export default function HomePage() {
   // Prices come from lib/pricing.ts (single source of truth).

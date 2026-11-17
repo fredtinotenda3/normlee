@@ -17,13 +17,29 @@ export interface ArticleSection {
   list?: string[];
 }
 
+export interface ArticleFaq {
+  question: string;
+  answer: string;
+}
+
 export interface Article {
   slug: string;
+  /** Visible h1. */
   title: string;
-  /** Used as the meta description and the card summary. */
+  /** Card summary and intro paragraph. */
   summary: string;
+  /** SEO title (the site template adds " | Normlee Investments"). Keep to about 38 characters. */
+  seoTitle: string;
+  /** Meta description, about 120 to 160 characters. */
+  seoDescription: string;
   /** ISO date. */
   published: string;
+  /** ISO date of the last substantive edit. Shown on the page and used in structured data. */
+  updated?: string;
+  /** Slugs of other guides to link to at the bottom of the article. */
+  relatedSlugs: string[];
+  /** Visible questions and answers. Answers use only general information or facts from the site. */
+  faqs?: ArticleFaq[];
   readingMinutes: number;
   /** Product ids from lib/pricing.ts that the article relates to. */
   relatedProductIds: string[];
@@ -36,9 +52,28 @@ export const articles: Article[] = [
     title: "Understanding aggregate sizes: what 3/4, 10mm and 7mm stones mean",
     summary:
       "Stone is sold by nominal size. Here is how to read names like 3/4, 10mm and 7mm, and what to confirm before you order.",
+    seoTitle: "3/4, 10mm & 7mm Stones Explained",
+    seoDescription:
+      "How stone sizes such as 3/4, 10mm and 7mm are named, what nominal size means, and what to confirm with your supplier before you order.",
+    updated: "2026-11-17",
+    relatedSlugs: ["types-of-construction-sand", "crusher-run-and-its-applications", "estimating-material-quantities"],
     published: "2026-11-05",
     readingMinutes: 3,
     relatedProductIds: ["stones-1", "stones-3", "stones-2"],
+    faqs: [
+      {
+        question: "Is 3/4 stone the same as 19mm stone?",
+        answer: "Nominally, yes. 3/4 of an inch is about 19 mm. Because size is nominal, a load contains pieces around that size, so confirm what you are getting when you order.",
+      },
+      {
+        question: "Which stone size is right for concrete?",
+        answer: "It depends on the mix design and the thickness of the element being cast. Ask your contractor, designer or engineer. This guide does not recommend a mix.",
+      },
+      {
+        question: "Does Normlee sell 3/4, 7mm and 10mm stones?",
+        answer: "The products page lists all three with published prices. Prices and availability are confirmed when you enquire.",
+      },
+    ],
     sections: [
       {
         heading: "Aggregate is described by size",
@@ -67,12 +102,27 @@ export const articles: Article[] = [
   },
   {
     slug: "types-of-construction-sand",
-    title: "Types of construction sand: river sand and pit sand",
+    title: "River sand vs pit sand: how they differ and how to choose",
     summary:
       "River sand and pit sand are both used on building sites. Learn how they generally differ and what to ask before you choose.",
+    seoTitle: "River Sand vs Pit Sand: How They Differ",
+    seoDescription:
+      "River sand and pit sand come from different sources. Learn how they can differ and what to ask your builder or supplier before choosing.",
+    updated: "2026-11-17",
+    relatedSlugs: ["choosing-suitable-construction-materials", "estimating-material-quantities", "understanding-aggregate-sizes"],
     published: "2026-11-05",
     readingMinutes: 3,
     relatedProductIds: ["sand-1", "sand-2"],
+    faqs: [
+      {
+        question: "Is river sand better than pit sand?",
+        answer: "Neither is better in every case. The right choice depends on the job and on what your plans, builder or engineer specify.",
+      },
+      {
+        question: "Does Normlee sell both river sand and pit sand?",
+        answer: "Yes. Both are listed on the products page with published prices. Confirm availability and delivery when you enquire.",
+      },
+    ],
     sections: [
       {
         heading: "Two common sources",
@@ -83,7 +133,7 @@ export const articles: Article[] = [
       {
         heading: "How they are commonly used",
         paragraphs: [
-          "River sand is commonly used for plaster, mortar and concrete mixes. Pit sand is commonly used for bedding, filling and general building work. These are general patterns, not rules. Individual deliveries differ, and some jobs have their own requirements.",
+          "Which sand suits plaster, mortar, concrete, bedding or filling varies with the job and with local building practice, and builders often have their own preferences. Individual deliveries also differ. Ask your builder or engineer which type they specify, and ask us what is available.",
         ],
       },
       {
@@ -96,12 +146,27 @@ export const articles: Article[] = [
   },
   {
     slug: "crusher-run-and-its-applications",
-    title: "Crusher run and its applications",
+    title: "What is crusher run and where is it used?",
     summary:
       "Crusher run is crushed rock with a mix of particle sizes. Find out why it is used under paving, driveways and yards.",
+    seoTitle: "What Is Crusher Run? Common Uses",
+    seoDescription:
+      "Crusher run is crushed rock sold with its fine material left in. Find out what that means, why it is used for bases, and what to ask your contractor.",
+    updated: "2026-11-17",
+    relatedSlugs: ["preparing-a-site-for-paving", "estimating-material-quantities", "understanding-aggregate-sizes"],
     published: "2026-11-05",
     readingMinutes: 3,
     relatedProductIds: ["base-1", "base-2"],
+    faqs: [
+      {
+        question: "Is crusher run the same as quarry dust?",
+        answer: "No. Crusher run contains a range of sizes from stones down to dust. Quarry dust is the fine material only. Normlee lists Crusher Runner and Quarry Dust as separate products.",
+      },
+      {
+        question: "Does crusher run need to be compacted?",
+        answer: "When it is used as a base, it is normally spread and compacted. How thick the layer should be and how it is compacted depend on the job, so ask your contractor or designer.",
+      },
+    ],
     sections: [
       {
         heading: "What crusher run is",
@@ -128,6 +193,11 @@ export const articles: Article[] = [
     title: "Choosing suitable construction materials for your project",
     summary:
       "A simple checklist of questions to answer before you order stones, sand, bricks or fill.",
+    seoTitle: "Construction Materials Order Checklist",
+    seoDescription:
+      "Questions to answer before you order stones, sand, bricks or fill: the job, the quantity, site access and timing. Use it to get a faster, clearer quote.",
+    updated: "2026-11-17",
+    relatedSlugs: ["estimating-material-quantities", "planning-material-delivery", "types-of-construction-sand"],
     published: "2026-11-05",
     readingMinutes: 3,
     relatedProductIds: ["stones-1", "sand-1", "base-1", "bricks-1"],
@@ -162,6 +232,11 @@ export const articles: Article[] = [
     title: "Preparing a site for paving: an overview",
     summary:
       "A general overview of the stages involved in preparing ground for paving, and why the base layer matters.",
+    seoTitle: "Preparing a Site for Paving: Overview",
+    seoDescription:
+      "A general overview of the stages of preparing ground for paving and why the base layer matters. Your paving contractor sets the exact method for your site.",
+    updated: "2026-11-17",
+    relatedSlugs: ["crusher-run-and-its-applications", "estimating-material-quantities", "planning-material-delivery"],
     published: "2026-11-05",
     readingMinutes: 4,
     relatedProductIds: ["base-1", "base-2", "sand-2"],
@@ -169,7 +244,7 @@ export const articles: Article[] = [
       {
         heading: "Why preparation matters",
         paragraphs: [
-          "Most of the performance of a paved surface comes from what is underneath it. Paving laid on poorly prepared ground can settle or move. This article gives a general overview only. Your paving contractor or designer will set the exact method for your site.",
+          "What lies underneath a paved surface matters a great deal. Paving laid on poorly prepared ground can settle or move. This article gives a general overview only. Your paving contractor or designer will set the exact method for your site.",
         ],
       },
       {
@@ -197,9 +272,24 @@ export const articles: Article[] = [
     title: "Estimating material quantities in cubic metres",
     summary:
       "How to work out the volume of material for a layer or area, and why you should allow for settling and waste.",
+    seoTitle: "Estimating Material Quantities in m³",
+    seoDescription:
+      "Work out how many cubic metres of stone, sand or fill you need: length times width times depth, plus an allowance for settling. Includes a worked example.",
+    updated: "2026-11-17",
+    relatedSlugs: ["choosing-suitable-construction-materials", "planning-material-delivery", "understanding-aggregate-sizes"],
     published: "2026-11-05",
     readingMinutes: 3,
     relatedProductIds: ["stones-1", "sand-1", "base-1"],
+    faqs: [
+      {
+        question: "How many cubic metres are in a truckload?",
+        answer: "It depends on the truck. Normlee has not published truck load sizes on this site, so ask when you enquire.",
+      },
+      {
+        question: "Does the price calculator work out how much I need?",
+        answer: "No. It multiplies a published price by the quantity you enter. Work out your quantity first, then confirm everything with us.",
+      },
+    ],
     sections: [
       {
         heading: "The basic calculation",
@@ -233,9 +323,24 @@ export const articles: Article[] = [
     title: "Planning a material delivery to your site",
     summary:
       "What to think about before a truck arrives with your materials: access, where to tip, and what to confirm.",
+    seoTitle: "Planning a Material Delivery to Site",
+    seoDescription:
+      "Before a truck arrives with your materials: check access, choose a drop point and have your site details ready. Delivery is confirmed per location.",
+    updated: "2026-11-17",
+    relatedSlugs: ["estimating-material-quantities", "choosing-suitable-construction-materials", "crusher-run-and-its-applications"],
     published: "2026-11-05",
     readingMinutes: 3,
     relatedProductIds: ["stones-1", "sand-1", "base-1"],
+    faqs: [
+      {
+        question: "Can Normlee deliver to my site?",
+        answer: "Delivery availability and the charge are confirmed for your location when you enquire. We do not state a delivery area on this site until it is confirmed with you.",
+      },
+      {
+        question: "Is delivery included in the product price?",
+        answer: "No. The products page notes that delivery charges are extra and depend on your location.",
+      },
+    ],
     sections: [
       {
         heading: "Think about access",

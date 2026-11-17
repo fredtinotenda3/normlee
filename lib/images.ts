@@ -24,19 +24,19 @@ export interface SitePhoto {
 
 export const photos = {
   heroLoading: {
-    src: "/images/home/aggregate-loading-scania-excavator.webp",
+    src: "/images/home/truck-on-dirt-road-with-machinery.webp",
     width: 368,
     height: 490,
     alt: "A white and blue truck on a dirt road with earth-moving machinery behind it",
   },
   pavingDeliveryDetail: {
-    src: "/images/home/paving-blocks-delivery-detail.webp",
+    src: "/images/home/blocks-on-flatbed-truck-grab-crane.webp",
     width: 368,
     height: 460,
     alt: "A flatbed truck carrying stacked grey blocks, with a yellow grab crane above it at a building site",
   },
   tipperFill: {
-    src: "/images/home/tipper-spreading-fill-material.webp",
+    src: "/images/home/tipper-truck-emptying-load-dirt-road.webp",
     width: 368,
     height: 490,
     alt: "A tipper truck emptying its load onto a dirt road beside a tree",
@@ -54,7 +54,7 @@ export const photos = {
     alt: "A row of trucks parked side by side on open ground at dusk, with a small car at the right",
   },
   pavingDeliveryCrane: {
-    src: "/images/services/paving-blocks-delivery-crane-truck.webp",
+    src: "/images/services/blocks-delivery-truck-grab-crane.webp",
     width: 368,
     height: 490,
     alt: "A truck loaded with stacked grey blocks beside a dirt track, with a yellow grab crane above the load",

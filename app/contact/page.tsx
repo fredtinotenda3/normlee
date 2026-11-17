@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import { MapPin, Phone, Clock, MessageCircle, Truck } from "lucide-react";
 import { primaryPhone, site, telUrl, whatsappMessages, whatsappUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact & Quote Requests",
   description:
-    "Contact Normlee Investments for construction aggregates, building materials, delivery and paving quotes in Zimbabwe. Call or message us on WhatsApp.",
-  openGraph: {
-    title: "Contact Us | Normlee Investments",
-    description: "Call or message Normlee Investments on WhatsApp for materials, delivery and paving quotes.",
-    url: "/contact",
-    type: "website",
-  },
-  alternates: { canonical: "/contact" },
-};
+    "Call or WhatsApp Normlee Investments for a quote on construction aggregates, bricks, delivery and paving in Zimbabwe. Phone numbers, address and hours.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
@@ -23,8 +19,9 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-linear-to-br from-gray-800 via-gray-900 to-black" aria-hidden="true" />
         <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary" aria-hidden="true" />
         <div className="container mx-auto px-6 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-2">Contact Us</h1>
-          <p className="text-gray-200">We&apos;re ready to help with your next project.</p>
+          <Breadcrumbs crumbs={[{ name: "Contact", href: "/contact" }]} />
+          <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-2">Contact Normlee Investments</h1>
+          <p className="text-gray-200">Call or WhatsApp us for a quote on materials, delivery or paving.</p>
         </div>
       </section>
 

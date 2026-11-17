@@ -10,7 +10,12 @@
 export const site = {
   name: "Normlee Investments",
   legalName: "Normlee Investments (Pvt) Ltd",
-  url: "https://www.normlee.net",
+  /**
+   * TODO(owner): the production domain has NOT been confirmed. Set NEXT_PUBLIC_SITE_URL in the hosting
+   * environment to the real origin (https, no trailing slash). The fallback below is only the value
+   * carried over from Phase 4. It drives canonical URLs, the sitemap, robots.txt and structured data.
+   */
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.normlee.net").replace(/\/+$/, ""),
   /** Verified by the owner: the company has operated since 2010. */
   foundedYear: 2010,
 
@@ -39,6 +44,25 @@ export const site = {
    */
   deliveryAreas: ["Borrowdale", "Hatcliffe", "Surrounding areas (contact us for details)"],
 } as const;
+
+/**
+ * Which business details management has confirmed. While a flag is false, the detail is NOT used in
+ * LocalBusiness structured data (see lib/structuredData.ts). Flip a flag only after written confirmation.
+ */
+export const verifiedBusinessDetails = {
+  address: false,
+  phones: false,
+  hours: false,
+} as const;
+
+/**
+ * Set NEXT_PUBLIC_SITE_INDEXABLE=false on staging/preview deployments so they are never indexed.
+ * Production leaves it unset.
+ */
+export const siteIndexable = process.env.NEXT_PUBLIC_SITE_INDEXABLE !== "false";
+
+/** Google Search Console HTML-tag verification token. Supplied by management via the environment. */
+export const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 /** Short factual description reused in metadata and structured data. */
 export const siteDescription =

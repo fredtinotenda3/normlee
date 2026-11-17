@@ -8,15 +8,15 @@ All images use `next/image` with explicit width/height. Dimensions and alt text 
 
 | File | Placement | Content | Dimensions | Alt text |
 |---|---|---|---|---|
-| `home/aggregate-loading-scania-excavator.webp` | Home hero (lg+); `/projects` "From the field" | Truck on a dirt road, machinery behind | 368x490 | A white and blue truck on a dirt road with earth-moving machinery behind it |
+| `home/truck-on-dirt-road-with-machinery.webp` | Home hero (lg+); `/projects` "From the field" | Truck on a dirt road, machinery behind | 368x490 | A white and blue truck on a dirt road with earth-moving machinery behind it |
 | `home/earth-heap-dirt-road.webp` (new) | Home "Bulk Aggregates" card; `/projects` | Heap of loose material beside a dirt road | 368x490 | A raised heap of loose material along the edge of a dirt road, with trees and a tower in the distance |
-| `home/tipper-spreading-fill-material.webp` | Home "Delivery" card; `/projects` | Tipper emptying a load on a dirt road | 368x490 | A tipper truck emptying its load onto a dirt road beside a tree |
+| `home/tipper-truck-emptying-load-dirt-road.webp` | Home "Delivery" card; `/projects` | Tipper emptying a load on a dirt road | 368x490 | A tipper truck emptying its load onto a dirt road beside a tree |
 | `home/truck-fleet-yard-dusk.webp` (re-edited) | Home "Why Normlee"; `/about` | Trucks parked at dusk | 484x364 | A row of trucks parked side by side on open ground at dusk, with a small car at the right |
-| `services/paving-blocks-delivery-crane-truck.webp` | `/services` Delivery section; `/projects` | Stacked blocks on a truck, grab crane above (a delivery, not an installation) | 368x490 | A truck loaded with stacked grey blocks beside a dirt track, with a yellow grab crane above the load |
+| `services/blocks-delivery-truck-grab-crane.webp` | `/services` Delivery section; `/projects` | Stacked blocks on a truck, grab crane above (a delivery, not an installation) | 368x490 | A truck loaded with stacked grey blocks beside a dirt track, with a yellow grab crane above the load |
 | `products/sand-stockpile-lawn.webp` | `/products` Sand category card | Pile of sand on a lawn | 720x835 | A large pile of sand on a lawn, with trees in the background |
 
 ## B. Retired from use
-* `home/paving-blocks-delivery-detail.webp`: near-identical to the `/services` crane frame. File kept in `public/images/home/` but no longer referenced. Delete it if you wish.
+* `home/blocks-on-flatbed-truck-grab-crane.webp`: near-identical to the `/services` crane frame. File kept in `public/images/home/` but no longer referenced. Delete it if you wish.
 
 ## C. Decorative artwork (no file)
 `components/shared/PavingPattern.tsx`: faint block pattern behind banners and placeholders.
