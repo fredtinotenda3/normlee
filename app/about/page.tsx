@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Building, Package, Truck, HardHat, ArrowRight, CheckCircle2 } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
-import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
 import CtaBanner from "@/components/shared/CtaBanner";
 import { photos } from "@/lib/images";
 import { site, whatsappMessages } from "@/lib/site";
@@ -156,8 +155,15 @@ export default function AboutPage() {
               ))}
             </ul>
           </div>
-          {/* TODO(owner): replace with a genuine team photograph, with the team's consent (about-team-photo.md). */}
-          <PhotoPlaceholder subject="Photograph of the Normlee team" className="h-72 rounded-2xl" />
+          {/* Genuine owner-supplied photograph of operations. TODO(owner): a team photograph, with the team's consent, could replace it (about-team-photo.md). */}
+          <Image
+            src={photos.tipperFill.src}
+            width={photos.tipperFill.width}
+            height={photos.tipperFill.height}
+            alt={photos.tipperFill.alt}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="h-72 w-full rounded-2xl object-cover shadow-md"
+          />
         </div>
       </section>
 

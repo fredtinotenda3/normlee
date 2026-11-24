@@ -26,8 +26,8 @@ Descriptions are written as plain sentences. They name materials once and end wi
 * **Intent:** brand and broad "building materials and paving in Zimbabwe".
 * **H1:** "Build With Confidence." plus screen-reader topic text (Decision, see `SEO_AUDIT.md` #5). H2s: What We Offer, Why Normlee, Get to Know Normlee, Published Prices, Ready to Build. No skipped levels.
 * **Changes:** new title and description; Delivery card now links to `/services#delivery` (was `/contact`) so the delivery intent reaches the right page; hero photograph no longer preloaded on mobile.
-* **Images:** 4 distinct genuine photos with factual alt text; two placeholders labelled "Photo coming soon".
-* **Remaining:** the H1 slogan carries no topic words visibly. Placeholder tiles for paving and building materials remain until real photos exist.
+* **Images:** 4 distinct genuine photos with factual alt text; the two former placeholders now hold original illustrations, labelled "Illustration" and with alt text starting "Illustration of".
+* **Remaining:** the H1 slogan carries no topic words visibly. The paving and building-materials cards use illustrations until real photographs exist.
 
 ### About (`/about`)
 * **H1/H2:** one H1; H2s "Construction materials for builders, contractors and homeowners", "Operating since 2010", "Products and services", "Our approach to enquiries". Fine.
@@ -44,7 +44,7 @@ Descriptions are written as plain sentences. They name materials once and end wi
 * **Intent:** delivery and paving installation, kept distinct from material supply.
 * **H1** changed from "Services" to "Material Supply, Delivery & Paving". Sections keep ids `#supply`, `#delivery`, `#paving`.
 * **Changes:** title, description, breadcrumb, `Service` JSON-LD for Delivery and Paving installation, four visible questions, no new claims. The page still says delivery coverage is not stated until confirmed.
-* **Remaining:** paving types (driveways, industrial, walkways) have placeholder images and no verified detail (types, finishes, installer). Contact page says "Areas we serve include Borrowdale, Hatcliffe" which conflicts with this page (see `SEO_AUDIT.md` #18).
+* **Remaining:** paving types (driveways, industrial, walkways) use labelled illustrations and have no verified detail (types, finishes, installer). Contact page says "Areas we serve include Borrowdale, Hatcliffe" which conflicts with this page (see `SEO_AUDIT.md` #18).
 
 ### Projects (`/projects`) and Testimonials (`/testimonials`)
 * Both contain only placeholders or a "coming soon" message. They are `noindex, follow` and excluded from the sitemap, and flip to indexable automatically once real entries exist in `lib/projects.ts` / `lib/testimonials.ts`. Both remain in the navigation so users and crawlers can still reach them.

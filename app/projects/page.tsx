@@ -3,9 +3,9 @@ import { pageMetadata, projectsIndexable } from "@/lib/seo";
 import Image from "next/image";
 import { FolderOpen, MapPin } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
-import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
+import IllustrationImage from "@/components/shared/IllustrationImage";
 import CtaBanner from "@/components/shared/CtaBanner";
-import { photos } from "@/lib/images";
+import { illustrations, photos } from "@/lib/images";
 import { getProjectsByCategory, projectCategories } from "@/lib/projects";
 import { whatsappMessages } from "@/lib/site";
 
@@ -25,6 +25,15 @@ const deliveryPhotos = [
   { photo: photos.earthHeap, caption: "A heap of loose material along the edge of a dirt road." },
   { photo: photos.heroLoading, caption: "A truck on a dirt road with machinery behind it." },
 ];
+
+// One illustration per category while the category has no verified project. These are artwork, not Normlee work.
+const categoryIllustrations = {
+  residential: illustrations.residentialDriveway,
+  commercial: illustrations.commercialForecourt,
+  industrial: illustrations.industrialYard,
+  walkways: illustrations.gardenWalkway,
+  supply: illustrations.materialSupply,
+} as const;
 
 export default function ProjectsPage() {
   return (
@@ -46,7 +55,7 @@ export default function ProjectsPage() {
             </h2>
             {/* TODO(owner): supply photographs and facts for real projects (see lib/projects.ts). */}
             <p className="text-gray-700 leading-relaxed">
-              The tiles below are placeholders. They are not photographs of Normlee projects. Each will be
+              The pictures below are illustrations, not photographs of Normlee projects. Each will be
               replaced with a real project, with its location where the client agrees, once we have verified
               photographs and details.
             </p>
@@ -64,7 +73,11 @@ export default function ProjectsPage() {
 
                   {items.length === 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      <PhotoPlaceholder subject={category.photoSubject} className="h-56 rounded-2xl" />
+                      <IllustrationImage
+                        image={categoryIllustrations[category.id]}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="h-56 rounded-2xl"
+                      />
                     </div>
                   ) : (
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

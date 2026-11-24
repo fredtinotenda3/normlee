@@ -4,12 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { HardHat, Home, Building2, Leaf, CheckCircle2, Truck, Package, MessageCircle, ArrowRight } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
-import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
+import IllustrationImage from "@/components/shared/IllustrationImage";
 import CtaBanner from "@/components/shared/CtaBanner";
 import FaqList from "@/components/shared/FaqList";
 import JsonLd from "@/components/shared/JsonLd";
 import { servicesJsonLd } from "@/lib/structuredData";
-import { photos } from "@/lib/images";
+import { illustrations, photos } from "@/lib/images";
 import { whatsappMessages, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -31,19 +31,19 @@ const pavingTypes = [
     icon: Home,
     title: "Residential driveways",
     description: "Paving for driveways at homes and other residential properties.",
-    photo: "Completed residential driveway",
+    illustration: illustrations.residentialDriveway,
   },
   {
     icon: Building2,
     title: "Industrial and commercial paving",
     description: "Paving for industrial, warehouse and commercial properties.",
-    photo: "Completed industrial or commercial paving",
+    illustration: illustrations.industrialYard,
   },
   {
     icon: Leaf,
     title: "Decorative walkways",
     description: "Pathways and walkways for gardens and properties.",
-    photo: "Completed decorative walkway",
+    illustration: illustrations.gardenWalkway,
   },
 ];
 
@@ -150,7 +150,14 @@ export default function ServicesPage() {
               </a>
             </div>
           </div>
-          <PhotoPlaceholder subject="Materials supplied by Normlee" className="h-72 rounded-2xl" />
+          <Image
+            src={photos.sandStockpile.src}
+            width={photos.sandStockpile.width}
+            height={photos.sandStockpile.height}
+            alt={photos.sandStockpile.alt}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="h-72 w-full rounded-2xl object-cover shadow-md"
+          />
         </div>
       </section>
 
@@ -221,7 +228,11 @@ export default function ServicesPage() {
             {pavingTypes.map((type) => (
               <li key={type.title}>
                 <article className="h-full overflow-hidden rounded-2xl bg-white shadow-md">
-                  <PhotoPlaceholder subject={type.photo} className="h-52" />
+                  <IllustrationImage
+                    image={type.illustration}
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="h-52"
+                  />
                   <div className="p-6">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
                       <type.icon aria-hidden="true" className="h-6 w-6 text-primary-strong" />

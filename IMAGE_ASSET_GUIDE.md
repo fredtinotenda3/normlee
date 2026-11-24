@@ -36,3 +36,24 @@ Original-resolution photos (hero landscape 1920x1080, project photos 1200x800, t
 
 ## F. Supplied but not used
 * Video 10.20.10: shows a tipper branded "Aggregate Industries". Not used until you confirm whether it is Normlee's or a supplier's. A brick-stack frame from it was also rejected (blurred, overexposed).
+
+## Illustrations (added after Phase 4.5)
+
+Where no genuine photograph exists, the site uses original vector illustrations instead of a "Photo coming soon" tile. They live in `public/images/illustrations/` (1200x900 WebP), their editable SVG sources are in `design/illustrations-source/`, and they are registered in `lib/images.ts` under `illustrations`.
+
+Rules:
+
+* They are artwork, not photographs and not Normlee projects. Always render them with `components/shared/IllustrationImage.tsx`, which adds the visible "Illustration" label. Alt text must begin "Illustration of".
+* They are drawn in the brand palette and contain no logos, text, vehicle branding or people.
+* Replace an illustration with a genuine photograph whenever the owner supplies one. Do not replace one with stock photography presented as Normlee work.
+* A team photograph is still wanted for the About page. No illustrated or stock substitute was used, to avoid inventing a team; the slot shows a genuine operations photograph meanwhile.
+
+| Illustration | Used on |
+| --- | --- |
+| `paving-residential-driveway` | Services (Residential driveways), Projects (Residential) |
+| `paving-commercial-forecourt` | Projects (Commercial) |
+| `paving-industrial-yard` | Services (Industrial and commercial paving), Projects (Industrial) |
+| `paving-garden-walkway` | Services (Decorative walkways), Projects (Decorative walkways) |
+| `material-supply-stockpiles` | Projects (Material supply) |
+| `building-materials-bricks-soil-gravel` | Homepage (Building Materials card) |
+| `paving-installation-in-progress` | Homepage (Paving Services card) |

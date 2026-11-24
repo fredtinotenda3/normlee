@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Truck, HardHat, Box, Building2, ArrowRight } from "lucide-react";
-import PhotoPlaceholder from "@/components/shared/PhotoPlaceholder";
-import { photos, type SitePhoto } from "@/lib/images";
+import IllustrationImage from "@/components/shared/IllustrationImage";
+import { illustrations, photos, type SitePhoto } from "@/lib/images";
 
 // Each card uses a genuine owner-supplied photograph (see lib/images.ts) or, where no matching
-// photograph exists yet, a clearly labelled placeholder. No photograph is repeated on the homepage.
+// photograph exists yet, a clearly labelled original illustration. No photograph is repeated on the homepage.
 // - Paving: the only supplied paving photo shows block DELIVERY and is used on /services, so this card
 //   keeps a placeholder until a completed-paving photo is supplied. TODO(owner)
 // - Building Materials: no genuine photo of bricks/topsoil/gravel/rubble yet. TODO(owner)
@@ -17,7 +17,7 @@ interface OverviewCard {
   href: string;
   cta: string;
   photo?: SitePhoto;
-  placeholderSubject?: string;
+  illustration?: SitePhoto;
 }
 
 const services: OverviewCard[] = [
@@ -37,7 +37,7 @@ const services: OverviewCard[] = [
     items: ["Driveways", "Walkways", "Industrial Paving", "Decorative Surfaces"],
     href: "/services",
     cta: "View services",
-    placeholderSubject: "Completed paving project",
+    illustration: illustrations.pavingInstallation,
   },
   {
     icon: Box,
@@ -46,7 +46,7 @@ const services: OverviewCard[] = [
     items: ["Red Common Bricks", "Top Soil", "Gravel", "Coal & Brick Rubble"],
     href: "/products",
     cta: "View products",
-    placeholderSubject: "Bricks and fill materials",
+    illustration: illustrations.buildingMaterials,
   },
   {
     icon: Building2,
@@ -96,10 +96,13 @@ export default function ServicesOverview() {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               ) : (
-                <PhotoPlaceholder
-                  subject={service.placeholderSubject}
-                  className="absolute inset-0 h-full w-full pb-40"
-                />
+                service.illustration && (
+                  <IllustrationImage
+                    absolute
+                    image={service.illustration}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                  />
+                )
               )}
               <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/90 via-gray-900/65 to-gray-900/20" />
 
